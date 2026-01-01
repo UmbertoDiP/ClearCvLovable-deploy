@@ -1,0 +1,3 @@
+[submodule "clear-cv-integration"]
+	path = clear-cv-integration
+	url = https://github.com/UmbertoDiP/clear-cv-integration.git
