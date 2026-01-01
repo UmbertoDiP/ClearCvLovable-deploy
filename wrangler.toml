@@ -1,0 +1,65 @@
+# Configurazione Cloudflare Workers per ClearCV - Lovable Version
+# App completamente nuova generata con Lovable che sostituisce la vecchia implementazione
+
+name = "clearcv-app"
+main = "worker.js"
+compatibility_date = "2024-01-15"
+compatibility_flags = ["nodejs_compat"]
+
+# Configurazione KV per storage (riutilizziamo i namespace esistenti)
+[[kv_namespaces]]
+binding = "CV_STORAGE"
+id = "db6a944b74b04ecd91f027a7ad7257df"
+
+[[kv_namespaces]]
+binding = "USER_SESSIONS"
+id = "aa90ab4794204ce3aa63b6879bbad956"
+
+# Routes per production deployment su clearcvapp.com
+[[routes]]
+pattern = "clearcvapp.com/*"
+zone_name = "clearcvapp.com"
+
+[[routes]]
+pattern = "www.clearcvapp.com/*"
+zone_name = "clearcvapp.com"
+
+[[routes]]
+pattern = "app.clearcvapp.com/*"
+zone_name = "clearcvapp.com"
+
+# Static assets configuration - punta alla build di Lovable
+# Nota: Wrangler 4.x usa 'assets' invece di 'site'
+[assets]
+directory = "./clear-cv-integration/dist"
+binding = "ASSETS"
+
+# Variabili d'ambiente per produzione
+[vars]
+ENVIRONMENT = "production"
+CORS_ORIGINS = "https://clearcvapp.com,https://www.clearcvapp.com,https://app.clearcvapp.com"
+
+# Development configuration
+[env.development]
+name = "clearcv-app-dev"
+
+[env.development.vars]
+ENVIRONMENT = "development"
+CORS_ORIGINS = "http://localhost:8080,http://localhost:8787,http://localhost:3000"
+
+# Staging environment
+[env.staging]
+name = "clearcv-app-staging"
+
+[env.staging.vars]
+ENVIRONMENT = "staging"
+CORS_ORIGINS = "https://staging.clearcvapp.com,https://test.clearcvapp.com"
+
+[[env.staging.routes]]
+pattern = "staging.clearcvapp.com/*"
+zone_name = "clearcvapp.com"
+
+# Configurazione per sviluppo locale
+[dev]
+port = 8787
+local_protocol = "http"
