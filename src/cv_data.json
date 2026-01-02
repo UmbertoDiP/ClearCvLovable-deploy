@@ -132,29 +132,6 @@
       ]
     },
     {
-      "job_title": "Founder & Full Stack Developer",
-      "company": "ClearCV - Progetto Personale",
-      "position": "Remoto",
-      "context": "",
-      "dates": "2025 – Presente",
-      "description": "<strong>ClearCV</strong> è un'applicazione web per la creazione di curriculum vitae professionali con editor intuitivo, AI auto-fill e anteprima live | <strong>Stack Tecnologico:</strong> React 18, TypeScript, Vite, TailwindCSS, shadcn/ui, Supabase (PostgreSQL), Stripe per pagamenti | <strong>Features:</strong> <em>Editor drag & drop</em>, esportazione PDF/HTML/JSON, supporto 23 lingue, sistema referral con commissioni, responsive design | <strong>Monetizzazione:</strong> Modello freemium (€3,99/anno Premium) con oltre 50.000 CV creati",
-      "chips": [
-        "React 18",
-        "TypeScript",
-        "Vite",
-        "TailwindCSS",
-        "shadcn/ui",
-        "Supabase",
-        "PostgreSQL",
-        "Stripe",
-        "PDF Generation",
-        "i18n",
-        "Responsive Design",
-        "SaaS",
-        "Freemium Model"
-      ]
-    },
-    {
       "job_title": "Full Stack Developer",
       "company": "ReActive | Gruppo AlmavivA",
       "position": "Roma (Remoto)",
@@ -315,6 +292,31 @@
         "Lettura Tech Blogs",
         "Viaggi",
         "Cucina"
+      ]
+    }
+  ],
+  "personal_projects": [
+    {
+      "job_title": "Founder & Full Stack Developer",
+      "company": "ClearCV - Progetto Personale",
+      "position": "Remoto",
+      "context": "",
+      "dates": "2025 – Presente",
+      "description": "<strong>ClearCV</strong> è un'applicazione web per la creazione di curriculum vitae professionali con editor intuitivo, AI auto-fill e anteprima live | <strong>Stack Tecnologico:</strong> React 18, TypeScript, Vite, TailwindCSS, shadcn/ui, Supabase (PostgreSQL), Stripe per pagamenti | <strong>Features:</strong> <em>Editor drag & drop</em>, esportazione PDF/HTML/JSON, supporto 23 lingue, sistema referral con commissioni, responsive design | <strong>Monetizzazione:</strong> Modello freemium",
+      "chips": [
+        "React 18",
+        "TypeScript",
+        "Vite",
+        "TailwindCSS",
+        "shadcn/ui",
+        "Supabase",
+        "PostgreSQL",
+        "Stripe",
+        "PDF Generation",
+        "i18n",
+        "Responsive Design",
+        "SaaS",
+        "Freemium Model"
       ]
     }
   ]
