@@ -465,6 +465,12 @@
                         <h3>Esperienza Professionale (continua)</h3>
                         <div id="experience-container-page2"></div>
                     </section>
+
+                    <!-- Progetti Personali -->
+                    <section class="personal-projects-section">
+                        <h3>Progetti Personali</h3>
+                        <div id="personal-projects-container-page2"></div>
+                    </section>
                 </div>
             </div>
 
@@ -629,6 +635,18 @@
                     experienceContainer2.appendChild(createExperienceItem(exp));
                 });
 
+                // Popola progetti personali pagina 2
+                console.log('🚀 Popolo progetti personali pagina 2...');
+                if (data.personal_projects && data.personal_projects.length > 0) {
+                    const projectsContainer2 = document.getElementById('personal-projects-container-page2');
+                    console.log('  Progetti personali pagina 2:', data.personal_projects.length);
+                    data.personal_projects.forEach((project, index) => {
+                        console.log(`    Progetto ${index + 1}:`, project.job_title);
+                        projectsContainer2.appendChild(createExperienceItem(project));
+                    });
+                    console.log('✅ Progetti personali pagina 2 popolati:', data.personal_projects.length);
+                }
+
                 // Popola formazione
                 console.log('🎓 Popolo formazione...');
                 const educationContainer = document.getElementById('education-container');
@@ -700,7 +718,16 @@
 
                 const companyName = document.createElement('span');
                 companyName.className = 'company-name-inline';
-                companyName.textContent = exp.company;
+
+                // Check if company contains URL and make it clickable
+                const urlRegex = /(https?:\/\/[^\s]+)/g;
+                if (urlRegex.test(exp.company)) {
+                    const companyWithLink = exp.company.replace(urlRegex, '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>');
+                    companyName.innerHTML = companyWithLink;
+                } else {
+                    companyName.textContent = exp.company;
+                }
+
                 companyLine.appendChild(companyName);
 
                 if (exp.position) {
