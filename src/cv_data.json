@@ -134,7 +134,7 @@
       "position": "Aprilia, Lazio (In sede)",
       "context": "Cliente: Ministero della Difesa",
       "dates": "Nov 2018 Set 2020",
-      "description": "Gestione Cliente Ministero Difesa:Sviluppo e manutenzione portale SIAC (Sistema Integrato Amministrazione Contabile) | Piattaforma Gemini:Sviluppo piattaforma web monitoraggio reti e servizi comunicazione | Modernizzazione SIAC con Angular:Migrazione tecnologia legacy JSP a SPA moderna con Angular 2+"
+      "description": "Debugging del portale SIAC del Ministero della Difesa per la gestione delle attività codificative della NATO | Sviluppo nella nuova versione della piattaforma Gemini per il monitoraggio attivo e passivo di reti e servizi di comunicazione | Competenze: Java EE, JSP/JSF, XML, JPA/Hibernate, Spring Boot, Spring MVC, Spring Data JPA, Angular 8 with NgRx, TypeScript, RESTful APIs"
     },
     {
       "job_title": "Stagista - Sviluppatore RPA",
@@ -142,44 +142,32 @@
       "position": "Roma, Italia",
       "context": "Cliente: WINDTRE Italia",
       "dates": "Lug 2018 Nov 2018",
-      "description": "Stage Settore Tecnologico:Creazione e ottimizzazione processi Robotic Process Automation (RPA) | Sviluppo Bot Blue Prism:Configurazione bot per processi aziendali ripetitivi | Scripting Visual Basic:Sviluppo script VBA per automazione Microsoft Office"
+      "description": "Progettazione e sviluppo per cliente Wind/3 Italia di un set di processi tramite il software Blue Prism per la Robotic Process Automation (RPA) | Competenze: Blue Prism RPA, JavaScript, Visual Basic (Word/Excel VBA)"
+    },
+    {
+      "job_title": "Freelance Web Developer",
+      "company": "Attività Freelance",
+      "position": "",
+      "context": "",
+      "dates": "2012 – 2015",
+      "description": "Sviluppo siti web e applicazioni web | Competenze: HTML, CSS, PHP, SQL, WordPress, Basic SEO, Adobe Photoshop/Illustrator"
     }
   ],
   "education": [
     {
-      "qualification": "Laurea Triennale in Informatica",
-      "dates": "2015 2018",
-      "details": "Università degli Studi di Roma Tor Vergata - 110/110 con Lode. Tesi: Sviluppo di applicazioni web moderne con architetture microservizi."
+      "qualification": "Geometra",
+      "dates": "2006 – 2011",
+      "details": "Istituto d'istruzione Superiore Statale \"Leon Battista Alberti\", Roma (Italia) - Nozioni base di Autocad, Estimo, Calcoli Topografici"
     },
     {
-      "qualification": "AWS Certified Solutions Architect Associate",
-      "dates": "2023 2023",
-      "details": "Amazon Web Services - Certificazione professionale AWS (ID: AWS-SAA-2023-001). Preparazione intensiva di 3 mesi."
+      "qualification": "Corso di Laurea Triennale in Informatica",
+      "dates": "2015 – 2016",
+      "details": "Sapienza, Roma (Italia) - Esami sostenuti: Metodi Matematici per l'Informatica, Calcolo Differenziale, Metodologie di Programmazione (Java), Fondamenti di Programmazione (Python)"
     },
     {
-      "qualification": "Angular Certified Developer",
-      "dates": "2023 2023",
-      "details": "Google Developers - Certificazione ufficiale Google per Angular framework."
-    },
-    {
-      "qualification": "Docker Certified Associate",
-      "dates": "2022 2022",
-      "details": "Docker Inc. - Certificazione Docker per containerizzazione e orchestrazione."
-    },
-    {
-      "qualification": "Advanced React & Redux Masterclass",
-      "dates": "2022 2022",
-      "details": "Udemy - Stephen Grider - Corso avanzato di 2 mesi su React e Redux."
-    },
-    {
-      "qualification": "Docker & Kubernetes Fundamentals",
-      "dates": "2021 2021",
-      "details": "Linux Academy - Corso intensivo di 1 mese su Docker e Kubernetes."
-    },
-    {
-      "qualification": "Corso Java 8 Enterprise Edition",
-      "dates": "2018 2018",
-      "details": "Oracle University - Corso ufficiale Oracle su Java Enterprise Edition."
+      "qualification": "Corso Java EE",
+      "dates": "05/2018 – 06/2018",
+      "details": "Sincrono S.R.L., Via Mosca 36, 00142 Roma (Italia) - Java Standard e Java Enterprise"
     }
   ],
   "certifications": [],
