@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV - Curriculum Vitae</title>
+    <style>
+        /* Import dello stesso CSS del CV originale */
+        :root {
+            --color-primary: #1e40af;
+            --color-primary-hover: #1e3a8a;
+            --color-primary-light: #3b82f6;
+            --color-text-main: #1a1a1a;
+            --color-text-secondary: #1f2937;
+            --color-text-tertiary: #4b5563;
+            --color-background: #f9f9f9;
+            --color-white: #ffffff;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 12px rgba(30, 64, 175, 0.3);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Inter, "Helvetica Neue", Helvetica, Arial, sans-serif;
+            line-height: 1.5;
+            color: var(--color-text-main);
+            background-color: var(--color-background);
+            font-size: 10.5pt;
+        }
+
+        .cv-multi-page-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .page {
+            width: 21cm;
+            min-height: 29.7cm;
+            padding: 1.5cm;
+            background-color: white;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 20px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header con foto e nome */
+        .main-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 14px;
+            border-bottom: 4px solid #374151;
+        }
+
+        .header-photo-container {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            margin-right: 35px;
+            background-color: #e5e7eb;
+            border: 5px solid #374151;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .header-photo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: 35% 22%;
+            transform: scale(1.6);
+        }
+
+        .header-text {
+            align-self: flex-end;
+            padding-bottom: 10px;
+            flex: 1;
+        }
+
+        .header-text h1 {
+            font-size: 28pt;
+            margin: 0;
+            color: #111827;
+            font-weight: 700;
+        }
+
+        .header-text h2 {
+            font-size: 16pt;
+            margin: 5px 0 0;
+            color: #4b5563;
+            font-weight: 400;
+        }
+
+        /* Layout due colonne */
+        .resume-body {
+            flex: 1;
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+        }
+
+        .sidebar {
+            width: 35%;
+            flex-shrink: 0;
+        }
+
+        .main-content {
+            width: 65%;
+            flex-grow: 1;
+        }
+
+        /* Sezioni */
+        h3 {
+            font-size: 14pt;
+            color: var(--color-text-secondary);
+            border-bottom: 2px solid #4b5563;
+            padding-bottom: 8px;
+            margin-top: 16px;
+            margin-bottom: 12px;
+            font-weight: bold;
+        }
+
+        section:first-of-type h3 {
+            margin-top: 0 !important;
+        }
+
+        /* Contatti */
+        .contact-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .contact-section li {
+            margin-bottom: 8px;
+            font-size: 10pt;
+            display: flex;
+            align-items: center;
+        }
+
+        .contact-section a {
+            color: var(--color-primary);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .contact-section a:hover {
+            color: var(--color-primary-hover);
+            text-decoration: underline;
+        }
+
+        /* Skills */
+        .skill-category {
+            margin-bottom: 16px;
+        }
+
+        .skill-category h4 {
+            font-size: 10pt;
+            font-weight: 600;
+            color: var(--color-text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .skills-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .skill-tag {
+            display: inline-block;
+            background-color: #eff6ff;
+            color: var(--color-primary);
+            border: 1px solid #bfdbfe;
+            padding: 4px 10px;
+            font-size: 9pt;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        /* Experience & Education */
+        .experience-item,
+        .education-item {
+            margin-bottom: 14px;
+            padding: 10px 10px 16px 14px;
+            border-left: 3px solid #bfdbfe;
+            background-color: #f8fafc;
+            border-radius: 4px;
+            position: relative;
+        }
+
+        .experience-item::before,
+        .education-item::before {
+            content: "➤";
+            position: absolute;
+            left: -1px;
+            top: 18px;
+            color: #4b5563;
+            font-size: 10pt;
+            transform: translateX(-50%);
+        }
+
+        .job-details,
+        .education-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+            gap: 15px;
+        }
+
+        .job-title,
+        .qualification {
+            font-size: 10.5pt;
+            font-weight: bold;
+            color: var(--color-text-main);
+        }
+
+        .company-name {
+            font-size: 9.5pt;
+            color: #666666;
+            font-style: italic;
+        }
+
+        .dates {
+            font-size: 9.5pt;
+            color: #666666;
+            font-style: italic;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .description-content,
+        .details-text {
+            font-size: 10pt;
+            margin-top: 8px;
+            text-align: justify;
+            line-height: 1.55;
+        }
+
+        /* Footer */
+        .page-footer-container {
+            margin-top: auto;
+            padding: 8px 0 0;
+            border-top: 1px solid #e5e7eb;
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+
+        .page-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            font-size: 8pt;
+        }
+
+        .footer-left {
+            flex: 1;
+            max-width: 65%;
+            text-align: justify;
+            line-height: 1.45;
+            color: #4b5563;
+            font-size: 7.5pt;
+        }
+
+        .footer-right {
+            flex-shrink: 0;
+            text-align: right;
+            white-space: nowrap;
+            font-weight: 600;
+            color: var(--color-primary);
+            font-size: 9pt;
+            padding-left: 15px;
+            border-left: 2px solid #bfdbfe;
+        }
+
+        /* Print styles */
+        @media print {
+            * {
+                -webkit-print-color-adjust: exact !important;
+            }
+
+            @page {
+                size: a4;
+                margin: 0;
+            }
+
+            body {
+                background-color: white;
+                margin: 0;
+                padding: 0;
+            }
+
+            .cv-multi-page-container {
+                padding: 0;
+            }
+
+            .page {
+                box-shadow: none !important;
+                margin: 0 !important;
+                width: 21cm !important;
+                min-height: 29.7cm !important;
+                break-inside: avoid !important;
+            }
+
+            .page:not(:last-child) {
+                break-after: page;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cv-multi-page-container">
+        <!-- Pagina 1 -->
+        <div class="page" id="page1">
+            <!-- Header -->
+            <header class="main-header">
+                <div class="header-photo-container">
+                    <img id="cv-photo" src="" alt="Foto profilo">
+                </div>
+                <div class="header-text">
+                    <h1 id="cv-name"></h1>
+                    <h2 id="cv-title"></h2>
+                </div>
+            </header>
+
+            <!-- Body -->
+            <div class="resume-body">
+                <!-- Sidebar -->
+                <div class="sidebar">
+                    <!-- Contatti -->
+                    <section class="contact-section">
+                        <h3>Contatti</h3>
+                        <ul id="contacts-list"></ul>
+                    </section>
+
+                    <!-- Skills -->
+                    <section class="skills-section">
+                        <h3>Competenze Tecniche</h3>
+                        <div id="skills-container"></div>
+                    </section>
+                </div>
+
+                <!-- Main Content -->
+                <div class="main-content">
+                    <!-- Profilo -->
+                    <section class="profile-section">
+                        <h3>Profilo Professionale</h3>
+                        <div class="about-description" id="profile-text"></div>
+                    </section>
+
+                    <!-- Esperienza -->
+                    <section class="experience-section">
+                        <h3>Esperienza Professionale</h3>
+                        <div id="experience-container"></div>
+                    </section>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="page-footer-container">
+                <div class="page-footer">
+                    <div class="footer-left" id="footer-disclaimer"></div>
+                    <div class="footer-right">Pagina 1</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagina 2 -->
+        <div class="page" id="page2">
+            <div class="resume-body">
+                <div class="sidebar">
+                    <!-- Formazione -->
+                    <section class="education-section">
+                        <h3>Formazione</h3>
+                        <div id="education-container"></div>
+                    </section>
+                </div>
+
+                <div class="main-content">
+                    <!-- Esperienza continua dalla pagina 1 -->
+                    <section class="experience-section">
+                        <h3>Esperienza Professionale (continua)</h3>
+                        <div id="experience-container-page2"></div>
+                    </section>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="page-footer-container">
+                <div class="page-footer">
+                    <div class="footer-left" id="footer-disclaimer-page2"></div>
+                    <div class="footer-right">Pagina 2</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Carica i dati dal JSON
+        async function loadCVData() {
+            try {
+                const response = await fetch('cv_data.json');
+                const data = await response.json();
+
+                // Popola header
+                document.getElementById('cv-name').textContent = data.header.name;
+                document.getElementById('cv-title').textContent = data.header.title;
+                document.getElementById('cv-photo').src = data.header.photo_url;
+
+                // Popola profilo
+                document.getElementById('profile-text').textContent = data.profile;
+
+                // Popola contatti
+                const contactsList = document.getElementById('contacts-list');
+                data.contacts.forEach(contact => {
+                    const li = document.createElement('li');
+                    if (contact.type === 'link') {
+                        const a = document.createElement('a');
+                        a.href = contact.value;
+                        a.textContent = contact.label;
+                        a.target = '_blank';
+                        a.rel = 'noopener noreferrer';
+                        li.appendChild(a);
+                    } else {
+                        li.textContent = contact.label;
+                    }
+                    contactsList.appendChild(li);
+                });
+
+                // Popola skills
+                const skillsContainer = document.getElementById('skills-container');
+                data.skills.forEach(skillCat => {
+                    const catDiv = document.createElement('div');
+                    catDiv.className = 'skill-category';
+
+                    const h4 = document.createElement('h4');
+                    h4.textContent = skillCat.category;
+                    catDiv.appendChild(h4);
+
+                    const tagsDiv = document.createElement('div');
+                    tagsDiv.className = 'skills-tags';
+                    skillCat.tags.forEach(tag => {
+                        const span = document.createElement('span');
+                        span.className = 'skill-tag';
+                        span.textContent = tag;
+                        tagsDiv.appendChild(span);
+                    });
+                    catDiv.appendChild(tagsDiv);
+                    skillsContainer.appendChild(catDiv);
+                });
+
+                // Popola esperienza (prima pagina - primi 3)
+                const experienceContainer = document.getElementById('experience-container');
+                const firstExperiences = data.experience.slice(0, 3);
+                firstExperiences.forEach(exp => {
+                    experienceContainer.appendChild(createExperienceItem(exp));
+                });
+
+                // Popola esperienza (seconda pagina - resto)
+                const experienceContainer2 = document.getElementById('experience-container-page2');
+                const remainingExperiences = data.experience.slice(3);
+                remainingExperiences.forEach(exp => {
+                    experienceContainer2.appendChild(createExperienceItem(exp));
+                });
+
+                // Popola formazione
+                const educationContainer = document.getElementById('education-container');
+                data.education.forEach(edu => {
+                    const div = document.createElement('div');
+                    div.className = 'education-item';
+
+                    const detailsDiv = document.createElement('div');
+                    detailsDiv.className = 'education-details';
+
+                    const qualDiv = document.createElement('div');
+                    const qualTitle = document.createElement('div');
+                    qualTitle.className = 'qualification';
+                    qualTitle.textContent = edu.qualification;
+                    qualDiv.appendChild(qualTitle);
+
+                    const datesDiv = document.createElement('div');
+                    datesDiv.className = 'dates';
+                    datesDiv.textContent = edu.dates;
+
+                    detailsDiv.appendChild(qualDiv);
+                    detailsDiv.appendChild(datesDiv);
+                    div.appendChild(detailsDiv);
+
+                    if (edu.details) {
+                        const detailsText = document.createElement('div');
+                        detailsText.className = 'details-text';
+                        detailsText.textContent = edu.details;
+                        div.appendChild(detailsText);
+                    }
+
+                    educationContainer.appendChild(div);
+                });
+
+                // Popola footer
+                document.getElementById('footer-disclaimer').textContent = data.footer_disclaimer;
+                document.getElementById('footer-disclaimer-page2').textContent = data.footer_disclaimer;
+
+            } catch (error) {
+                console.error('Errore caricamento CV:', error);
+            }
+        }
+
+        function createExperienceItem(exp) {
+            const div = document.createElement('div');
+            div.className = 'experience-item';
+
+            const detailsDiv = document.createElement('div');
+            detailsDiv.className = 'job-details';
+
+            const jobDiv = document.createElement('div');
+            const jobTitle = document.createElement('div');
+            jobTitle.className = 'job-title';
+            jobTitle.textContent = exp.job_title;
+            jobDiv.appendChild(jobTitle);
+
+            if (exp.company) {
+                const companyName = document.createElement('div');
+                companyName.className = 'company-name';
+                companyName.textContent = exp.company;
+                jobDiv.appendChild(companyName);
+            }
+
+            const datesDiv = document.createElement('div');
+            datesDiv.className = 'dates';
+            datesDiv.textContent = exp.dates;
+
+            detailsDiv.appendChild(jobDiv);
+            detailsDiv.appendChild(datesDiv);
+            div.appendChild(detailsDiv);
+
+            if (exp.description) {
+                const descDiv = document.createElement('div');
+                descDiv.className = 'description-content';
+                descDiv.textContent = exp.description;
+                div.appendChild(descDiv);
+            }
+
+            return div;
+        }
+
+        // Carica i dati al caricamento della pagina
+        window.addEventListener('DOMContentLoaded', loadCVData);
+    </script>
+</body>
+</html>
