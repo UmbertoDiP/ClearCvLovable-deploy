@@ -30,7 +30,7 @@
             line-height: 1.5;
             color: var(--color-text-main);
             background-color: var(--color-background);
-            font-size: 10.5pt;
+            font-size: 11pt;
         }
 
         .cv-multi-page-container {
@@ -93,7 +93,7 @@
         }
 
         .header-text h1 {
-            font-size: 32pt;
+            font-size: 36pt;
             margin: 0;
             color: #111827;
             font-weight: 700;
@@ -101,7 +101,7 @@
         }
 
         .header-text h2 {
-            font-size: 18pt;
+            font-size: 20pt;
             margin: 5px 0 0;
             color: #4b5563;
             font-weight: 400;
@@ -128,7 +128,7 @@
 
         /* Sezioni */
         h3 {
-            font-size: 15pt;
+            font-size: 16pt;
             color: var(--color-text-secondary);
             border-bottom: 2px solid #4b5563;
             padding-bottom: 8px;
@@ -150,7 +150,7 @@
 
         .contact-section li {
             margin-bottom: 8px;
-            font-size: 10pt;
+            font-size: 10.5pt;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -178,7 +178,7 @@
         }
 
         .skill-category h4 {
-            font-size: 10pt;
+            font-size: 10.5pt;
             font-weight: 600;
             color: var(--color-text-secondary);
             margin-bottom: 8px;
@@ -196,7 +196,7 @@
             color: var(--color-primary);
             border: 1px solid #bfdbfe;
             padding: 4px 10px;
-            font-size: 9pt;
+            font-size: 9.5pt;
             border-radius: 4px;
             font-weight: 600;
         }
@@ -234,19 +234,19 @@
 
         .job-title,
         .qualification {
-            font-size: 10.5pt;
+            font-size: 11pt;
             font-weight: bold;
             color: var(--color-text-main);
         }
 
         .company-name {
-            font-size: 9.5pt;
+            font-size: 10pt;
             color: #666666;
             font-style: italic;
         }
 
         .dates {
-            font-size: 9.5pt;
+            font-size: 10pt;
             color: #666666;
             font-style: italic;
             white-space: nowrap;
@@ -255,7 +255,7 @@
 
         .description-content,
         .details-text {
-            font-size: 10pt;
+            font-size: 10.5pt;
             margin-top: 8px;
             text-align: justify;
             line-height: 1.55;
@@ -269,7 +269,7 @@
         }
 
         .achievements-list li {
-            font-size: 10pt;
+            font-size: 10.5pt;
             line-height: 1.5;
             margin-bottom: 6px;
             text-align: justify;
@@ -493,7 +493,7 @@
 
                 // Popola profilo
                 console.log('📝 Popolo profilo...');
-                document.getElementById('profile-text').textContent = data.profile;
+                document.getElementById('profile-text').innerHTML = data.profile; // Use innerHTML for formatting
                 console.log('✅ Profilo popolato, lunghezza:', data.profile?.length);
 
                 // Popola contatti
@@ -679,7 +679,7 @@
                     ul.className = 'achievements-list';
                     achievements.forEach(achievement => {
                         const li = document.createElement('li');
-                        li.textContent = achievement.trim();
+                        li.innerHTML = achievement.trim(); // Use innerHTML for formatting
                         ul.appendChild(li);
                     });
                     div.appendChild(ul);
@@ -687,7 +687,7 @@
                     // Single achievement - plain text
                     const descDiv = document.createElement('div');
                     descDiv.className = 'description-content';
-                    descDiv.textContent = exp.description;
+                    descDiv.innerHTML = exp.description; // Use innerHTML for formatting
                     div.appendChild(descDiv);
                 }
             }

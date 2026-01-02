@@ -8,8 +8,8 @@
   "contacts": [
     {
       "type": "link",
-      "label": "info@umbertodipuorto.it",
-      "value": "mailto:info@umbertodipuorto.it"
+      "label": "dipuortoumberto@gmail.com",
+      "value": "mailto:dipuortoumberto@gmail.com"
     },
     {
       "type": "link",
@@ -25,6 +25,11 @@
       "type": "text",
       "label": "P.IVA: 17414481006",
       "value": "P.IVA: 17414481006"
+    },
+    {
+      "type": "link",
+      "label": "umbertodipuorto.it",
+      "value": "http://umbertodipuorto.it/"
     },
     {
       "type": "link",
