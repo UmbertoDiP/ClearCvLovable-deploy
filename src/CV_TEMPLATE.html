@@ -245,6 +245,26 @@
             font-style: italic;
         }
 
+        .company-position-line {
+            font-size: 10pt;
+            color: #666666;
+            font-style: italic;
+        }
+
+        .company-name-inline {
+            margin-right: 8px;
+        }
+
+        .position-inline {
+            color: #888888;
+        }
+
+        .context-info {
+            font-size: 9.5pt;
+            color: #888888;
+            margin-top: 3px;
+        }
+
         .dates {
             font-size: 10pt;
             color: #666666;
@@ -273,6 +293,25 @@
             line-height: 1.5;
             margin-bottom: 6px;
             text-align: justify;
+        }
+
+        /* Technology chips */
+        .chips-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 10px;
+        }
+
+        .tech-chip {
+            display: inline-block;
+            background-color: #f3f4f6;
+            color: #374151;
+            border: 1px solid #d1d5db;
+            padding: 3px 8px;
+            font-size: 8.5pt;
+            border-radius: 3px;
+            font-weight: 500;
         }
 
         /* Footer */
@@ -690,6 +729,19 @@
                     descDiv.innerHTML = exp.description; // Use innerHTML for formatting
                     div.appendChild(descDiv);
                 }
+            }
+
+            // Add technology chips
+            if (exp.chips && exp.chips.length > 0) {
+                const chipsContainer = document.createElement('div');
+                chipsContainer.className = 'chips-container';
+                exp.chips.forEach(chip => {
+                    const chipSpan = document.createElement('span');
+                    chipSpan.className = 'tech-chip';
+                    chipSpan.textContent = chip;
+                    chipsContainer.appendChild(chipSpan);
+                });
+                div.appendChild(chipsContainer);
             }
 
             return div;
