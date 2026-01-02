@@ -126,6 +126,14 @@ def extract_experience(soup):
             company_tag = item.find('span', class_='company-name-inline')
             company = clean_text(company_tag.get_text()) if company_tag else ""
 
+            # CAMPO AGGIUNTO: Position/Location - cerca span.position-inline
+            position_tag = item.find('span', class_='position-inline')
+            position = clean_text(position_tag.get_text()) if position_tag else ""
+
+            # CAMPO AGGIUNTO: Context/Client - cerca div.context-info
+            context_tag = item.find('div', class_='context-info')
+            context = clean_text(context_tag.get_text()) if context_tag else ""
+
             # Description - cerca ul.achievements-list
             achievements_list = item.find('ul', class_='achievements-list')
             description = ""
@@ -138,6 +146,8 @@ def extract_experience(soup):
             experiences.append({
                 "job_title": job_title,
                 "company": company,
+                "position": position,  # CAMPO AGGIUNTO: posizione/remoto
+                "context": context,    # CAMPO AGGIUNTO: cliente/contesto
                 "dates": dates,
                 "description": description
             })

@@ -636,10 +636,29 @@
             jobDiv.appendChild(jobTitle);
 
             if (exp.company) {
-                const companyName = document.createElement('div');
-                companyName.className = 'company-name';
+                const companyLine = document.createElement('div');
+                companyLine.className = 'company-position-line';
+
+                const companyName = document.createElement('span');
+                companyName.className = 'company-name-inline';
                 companyName.textContent = exp.company;
-                jobDiv.appendChild(companyName);
+                companyLine.appendChild(companyName);
+
+                if (exp.position) {
+                    const position = document.createElement('span');
+                    position.className = 'position-inline';
+                    position.textContent = exp.position;
+                    companyLine.appendChild(position);
+                }
+
+                jobDiv.appendChild(companyLine);
+            }
+
+            if (exp.context) {
+                const contextDiv = document.createElement('div');
+                contextDiv.className = 'context-info';
+                contextDiv.textContent = exp.context;
+                jobDiv.appendChild(contextDiv);
             }
 
             const datesDiv = document.createElement('div');
