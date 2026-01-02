@@ -288,5 +288,34 @@
   ],
   "certifications": [],
   "languages": [],
-  "footer_disclaimer": "Autorizzo il trattamento dei miei dati personali presenti nel curriculum vitae in base all'art. 13 del GDPR (Regolamento UE 2016/679) ai fini della ricerca e selezione del personale."
+  "footer_disclaimer": "Autorizzo il trattamento dei miei dati personali presenti nel curriculum vitae in base all'art. 13 del GDPR (Regolamento UE 2016/679) ai fini della ricerca e selezione del personale.",
+  "interests": [
+    {
+      "category": "Tecnologia",
+      "items": [
+        "Open Source Contribution",
+        "Machine Learning",
+        "Blockchain",
+        "IoT"
+      ]
+    },
+    {
+      "category": "Sport & Benessere",
+      "items": [
+        "Corsa (10K runner)",
+        "Palestra",
+        "Yoga",
+        "Trekking"
+      ]
+    },
+    {
+      "category": "Cultura",
+      "items": [
+        "Fotografia",
+        "Lettura Tech Blogs",
+        "Viaggi",
+        "Cucina"
+      ]
+    }
+  ]
 }
