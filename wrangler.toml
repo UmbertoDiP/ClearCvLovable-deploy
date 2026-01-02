@@ -30,9 +30,11 @@ zone_name = "clearcvapp.com"
 
 # Static assets configuration - punta alla build di Lovable
 # Nota: Wrangler 4.x usa 'assets' invece di 'site'
+# html_handling = "none" forza il passaggio attraverso il worker per modifiche runtime
 [assets]
 directory = "./clear-cv-integration/dist"
 binding = "ASSETS"
+html_handling = "none"
 
 # Variabili d'ambiente per produzione
 [vars]
