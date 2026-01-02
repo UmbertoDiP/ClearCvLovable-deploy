@@ -430,12 +430,6 @@
                         <h3>Esperienza Professionale</h3>
                         <div id="experience-container"></div>
                     </section>
-
-                    <!-- Progetti Personali -->
-                    <section class="personal-projects-section">
-                        <h3>Progetti Personali</h3>
-                        <div id="personal-projects-container"></div>
-                    </section>
                 </div>
             </div>
 
@@ -600,20 +594,6 @@
                     skillsContainer.appendChild(catDiv);
                 });
                 console.log('✅ Skills popolate:', data.skills.length, 'categorie');
-
-                // Popola progetti personali
-                console.log('🚀 Popolo progetti personali...');
-                if (data.personal_projects && data.personal_projects.length > 0) {
-                    const projectsContainer = document.getElementById('personal-projects-container');
-                    console.log('  Progetti personali:', data.personal_projects.length);
-                    data.personal_projects.forEach((project, index) => {
-                        console.log(`    Progetto ${index + 1}:`, project.job_title);
-                        projectsContainer.appendChild(createExperienceItem(project));
-                    });
-                    console.log('✅ Progetti personali popolati:', data.personal_projects.length);
-                } else {
-                    console.log('⚠️  Nessun progetto personale trovato');
-                }
 
                 // Popola esperienza (prima pagina - primi 3)
                 console.log('🏢 Popolo esperienza pagina 1...');
