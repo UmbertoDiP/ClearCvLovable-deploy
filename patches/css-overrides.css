@@ -1,0 +1,27 @@
+/**
+ * CSS Overrides - Fix urgenti senza modificare Lovable
+ *
+ * IMPORTANTE: Documenta ogni fix con:
+ * - Data
+ * - Descrizione problema
+ * - Ticket Lovable per integrazione futura
+ */
+
+/* ====================================
+   TEMPLATE FIX
+   ==================================== */
+
+/*
+ * [2025-01-01] Fix: [Descrizione Bug]
+ * TODO Lovable: Integrare in prossimo update
+ *
+.component-class {
+  property: value !important;
+}
+*/
+
+/* ====================================
+   ACTIVE FIXES
+   ==================================== */
+
+/* Nessun fix attivo al momento */
