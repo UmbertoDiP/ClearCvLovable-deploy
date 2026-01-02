@@ -43,7 +43,7 @@
         .page {
             width: 21cm;
             min-height: 29.7cm;
-            padding: 1.5cm;
+            padding: 0.4cm 0.4cm 0;
             background-color: white;
             box-shadow: var(--shadow-sm);
             margin-bottom: 20px;
@@ -62,8 +62,8 @@
         }
 
         .header-photo-container {
-            width: 160px;
-            height: 160px;
+            width: 180px;
+            height: 180px;
             border-radius: 50%;
             margin-right: 35px;
             background-color: #e5e7eb;
@@ -79,28 +79,33 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: 35% 22%;
-            transform: scale(1.6);
+            object-position: center center;
+            transform: scale(1.1);
         }
 
         .header-text {
-            align-self: flex-end;
+            align-self: center;
             padding-bottom: 10px;
             flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .header-text h1 {
-            font-size: 28pt;
+            font-size: 32pt;
             margin: 0;
             color: #111827;
             font-weight: 700;
+            text-align: left;
         }
 
         .header-text h2 {
-            font-size: 16pt;
+            font-size: 18pt;
             margin: 5px 0 0;
             color: #4b5563;
             font-weight: 400;
+            text-align: left;
         }
 
         /* Layout due colonne */
@@ -123,12 +128,12 @@
 
         /* Sezioni */
         h3 {
-            font-size: 14pt;
+            font-size: 15pt;
             color: var(--color-text-secondary);
             border-bottom: 2px solid #4b5563;
             padding-bottom: 8px;
-            margin-top: 16px;
-            margin-bottom: 12px;
+            margin-top: 18px;
+            margin-bottom: 14px;
             font-weight: bold;
         }
 
@@ -148,6 +153,12 @@
             font-size: 10pt;
             display: flex;
             align-items: center;
+            gap: 10px;
+        }
+
+        .contact-section .icon {
+            color: #4b5563;
+            flex-shrink: 0;
         }
 
         .contact-section a {
@@ -248,6 +259,20 @@
             margin-top: 8px;
             text-align: justify;
             line-height: 1.55;
+        }
+
+        /* Achievements list with bullets */
+        .achievements-list {
+            margin: 14px 0;
+            padding-left: 40px;
+            list-style-type: disc;
+        }
+
+        .achievements-list li {
+            font-size: 10pt;
+            line-height: 1.5;
+            margin-bottom: 6px;
+            text-align: justify;
         }
 
         /* Footer */
@@ -409,24 +434,81 @@
     </div>
 
     <script>
+        // Create contact icon based on type
+        function createContactIcon(contact) {
+            const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            svg.setAttribute('width', '16');
+            svg.setAttribute('height', '16');
+            svg.setAttribute('viewBox', '0 0 24 24');
+            svg.setAttribute('fill', 'none');
+            svg.setAttribute('stroke', 'currentColor');
+            svg.setAttribute('stroke-width', '2.5');
+            svg.setAttribute('stroke-linecap', 'round');
+            svg.setAttribute('stroke-linejoin', 'round');
+            svg.classList.add('icon');
+
+            // Detect icon type from value/label
+            if (contact.value.includes('mailto:')) {
+                // Email icon
+                svg.innerHTML = '<rect width="20" height="16" x="2" y="4" rx="2"/><path d="m2 7 8.97 5.7a1.94 1.94 0 0 0 2.06 0L22 7"/>';
+            } else if (contact.value.includes('tel:')) {
+                // Phone icon
+                svg.innerHTML = '<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>';
+            } else if (contact.value.includes('linkedin.com')) {
+                // LinkedIn icon
+                svg.innerHTML = '<path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/>';
+            } else if (contact.label.includes('P.IVA')) {
+                // Document icon for P.IVA
+                svg.innerHTML = '<path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><line x1="10" x2="8" y1="9" y2="9"/>';
+            } else {
+                // Location icon (default for other text)
+                svg.innerHTML = '<path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/>';
+            }
+
+            return svg;
+        }
+
         // Carica i dati dal JSON
         async function loadCVData() {
+            console.log('🚀 INIZIO CARICAMENTO CV');
             try {
+                console.log('📡 Fetching cv_data.json...');
                 const response = await fetch('cv_data.json');
+                console.log('✅ Response status:', response.status);
+
                 const data = await response.json();
+                console.log('📊 Dati JSON caricati:', data);
+                console.log('📋 Header:', data.header);
+                console.log('👤 Contacts count:', data.contacts?.length);
+                console.log('💼 Skills count:', data.skills?.length);
+                console.log('🏢 Experience count:', data.experience?.length);
+                console.log('🎓 Education count:', data.education?.length);
 
                 // Popola header
+                console.log('🎯 Popolo header...');
                 document.getElementById('cv-name').textContent = data.header.name;
                 document.getElementById('cv-title').textContent = data.header.title;
                 document.getElementById('cv-photo').src = data.header.photo_url;
+                console.log('✅ Header popolato:', data.header.name);
 
                 // Popola profilo
+                console.log('📝 Popolo profilo...');
                 document.getElementById('profile-text').textContent = data.profile;
+                console.log('✅ Profilo popolato, lunghezza:', data.profile?.length);
 
                 // Popola contatti
+                console.log('📞 Popolo contatti...');
                 const contactsList = document.getElementById('contacts-list');
-                data.contacts.forEach(contact => {
+                data.contacts.forEach((contact, index) => {
+                    console.log(`  Contatto ${index + 1}:`, contact);
                     const li = document.createElement('li');
+
+                    // Add icon based on contact type
+                    const icon = createContactIcon(contact);
+                    if (icon) {
+                        li.appendChild(icon);
+                    }
+
                     if (contact.type === 'link') {
                         const a = document.createElement('a');
                         a.href = contact.value;
@@ -435,14 +517,19 @@
                         a.rel = 'noopener noreferrer';
                         li.appendChild(a);
                     } else {
-                        li.textContent = contact.label;
+                        const span = document.createElement('span');
+                        span.textContent = contact.label;
+                        li.appendChild(span);
                     }
                     contactsList.appendChild(li);
                 });
+                console.log('✅ Contatti popolati:', data.contacts.length);
 
                 // Popola skills
+                console.log('🔧 Popolo skills...');
                 const skillsContainer = document.getElementById('skills-container');
-                data.skills.forEach(skillCat => {
+                data.skills.forEach((skillCat, index) => {
+                    console.log(`  Skill category ${index + 1}:`, skillCat.category, '- Tags:', skillCat.tags?.length);
                     const catDiv = document.createElement('div');
                     catDiv.className = 'skill-category';
 
@@ -461,24 +548,34 @@
                     catDiv.appendChild(tagsDiv);
                     skillsContainer.appendChild(catDiv);
                 });
+                console.log('✅ Skills popolate:', data.skills.length, 'categorie');
 
                 // Popola esperienza (prima pagina - primi 3)
+                console.log('🏢 Popolo esperienza pagina 1...');
                 const experienceContainer = document.getElementById('experience-container');
                 const firstExperiences = data.experience.slice(0, 3);
-                firstExperiences.forEach(exp => {
+                console.log('  Esperienze pagina 1:', firstExperiences.length);
+                firstExperiences.forEach((exp, index) => {
+                    console.log(`    Esperienza ${index + 1}:`, exp.job_title);
                     experienceContainer.appendChild(createExperienceItem(exp));
                 });
 
                 // Popola esperienza (seconda pagina - resto)
+                console.log('🏢 Popolo esperienza pagina 2...');
                 const experienceContainer2 = document.getElementById('experience-container-page2');
                 const remainingExperiences = data.experience.slice(3);
-                remainingExperiences.forEach(exp => {
+                console.log('  Esperienze pagina 2:', remainingExperiences.length);
+                remainingExperiences.forEach((exp, index) => {
+                    console.log(`    Esperienza ${index + 4}:`, exp.job_title);
                     experienceContainer2.appendChild(createExperienceItem(exp));
                 });
 
                 // Popola formazione
+                console.log('🎓 Popolo formazione...');
                 const educationContainer = document.getElementById('education-container');
-                data.education.forEach(edu => {
+                console.log('  Formazioni:', data.education?.length);
+                data.education.forEach((edu, index) => {
+                    console.log(`    Formazione ${index + 1}:`, edu.qualification);
                     const div = document.createElement('div');
                     div.className = 'education-item';
 
@@ -508,13 +605,20 @@
 
                     educationContainer.appendChild(div);
                 });
+                console.log('✅ Formazione popolata:', data.education.length);
 
                 // Popola footer
+                console.log('📄 Popolo footer...');
                 document.getElementById('footer-disclaimer').textContent = data.footer_disclaimer;
                 document.getElementById('footer-disclaimer-page2').textContent = data.footer_disclaimer;
+                console.log('✅ Footer popolato');
+
+                console.log('🎉 CARICAMENTO CV COMPLETATO CON SUCCESSO!');
 
             } catch (error) {
-                console.error('Errore caricamento CV:', error);
+                console.error('❌ ERRORE CARICAMENTO CV:', error);
+                console.error('Stack trace:', error.stack);
+                alert('ERRORE: Impossibile caricare il CV. Controlla la console (F12) per dettagli.');
             }
         }
 
@@ -547,10 +651,26 @@
             div.appendChild(detailsDiv);
 
             if (exp.description) {
-                const descDiv = document.createElement('div');
-                descDiv.className = 'description-content';
-                descDiv.textContent = exp.description;
-                div.appendChild(descDiv);
+                // Split description by " | " to create bullet points
+                const achievements = exp.description.split(' | ').filter(item => item.trim());
+
+                if (achievements.length > 1) {
+                    // Multiple achievements - use bullet list
+                    const ul = document.createElement('ul');
+                    ul.className = 'achievements-list';
+                    achievements.forEach(achievement => {
+                        const li = document.createElement('li');
+                        li.textContent = achievement.trim();
+                        ul.appendChild(li);
+                    });
+                    div.appendChild(ul);
+                } else {
+                    // Single achievement - plain text
+                    const descDiv = document.createElement('div');
+                    descDiv.className = 'description-content';
+                    descDiv.textContent = exp.description;
+                    div.appendChild(descDiv);
+                }
             }
 
             return div;

@@ -97,77 +97,77 @@
   ],
   "experience": [
     {
-      "job_title": "",
-      "company": "",
-      "dates": "",
-      "description": ""
+      "job_title": "Consulente Java Senior Freelance",
+      "company": "Aruba S.p.A. (tramite Experis)",
+      "dates": "Gen 2024 Presente",
+      "description": "Gestione Cliente Banca d'Italia:Responsabile progetti Java enterprise per applicazioni bancarie con firma digitale e validazione certificati X.509/eIDAS | Sviluppo Piattaforma ArubaSign:Stack completo Java/Spring Boot backend, Angular/Electron frontend, librerie native C/C++ per smartcard PKCS#11 | Progetto ArubaKey:Sviluppo sistema di aggiornamento automatico all'avvio con architettura moderna di auto-update | Packaging & Deployment:Creazione installer Windows con WiX Toolset e gestione MSI/EXE con firme digitali | CI/CD Pipeline:Configurazione e manutenzione pipeline GitLab CI/CD per build automatizzate e test"
     },
     {
-      "job_title": "",
-      "company": "",
-      "dates": "",
-      "description": ""
+      "job_title": "Full Stack Developer",
+      "company": "ReActive | Gruppo AlmavivA",
+      "dates": "Set 2022 Gen 2024",
+      "description": "Gestione Cliente MEF:Sviluppatore Full Stack Java 8 per portali web gestione debito pubblico 'GEDI Debito Centrale' e 'GEDI Debito Locale' | Sviluppo e Manutenzione Portali Web:Implementazione aggiornamenti per applicazioni mission-critical del MEF | Supervisione Risorse Junior:Tutoraggio, mentoring team junior e code review"
     },
     {
-      "job_title": "",
-      "company": "",
-      "dates": "",
-      "description": ""
+      "job_title": "Full Stack Developer",
+      "company": "Kirey Group",
+      "dates": "Ott 2021 Ago 2022",
+      "description": "Consulenza Istituti Bancari:Aggiornamenti processi DevOps e applicazioni monitoraggio | Processi DevOps UniCredit:Modifiche pipeline CI/CD e configurazione Jenkins con Groovy scripting | Applicazioni Monitoraggio Intesa San Paolo:Sviluppo app web monitoraggio sistemi bancari con Java 8 e Angular 2+ | Testing e Qualità:Implementazione test unitari con JUnit e quality assurance"
     },
     {
-      "job_title": "",
-      "company": "",
-      "dates": "",
-      "description": ""
+      "job_title": "Full Stack Developer",
+      "company": "Rpctech",
+      "dates": "Set 2020 Ott 2021",
+      "description": "Consulenza Engineering e NTT Data:Sviluppo funzionalità INPS ed Enel X | Manutenzione Progetti Postel:Bug fixing e manutenzione evolutiva progetti Poste Italiane | Architettura REST e SPA:Sviluppo API RESTful e Single Page Applications Angular"
     },
     {
-      "job_title": "",
-      "company": "",
-      "dates": "",
-      "description": ""
+      "job_title": "Full Stack Developer",
+      "company": "RESI Informatica",
+      "dates": "Nov 2018 Set 2020",
+      "description": "Gestione Cliente Ministero Difesa:Sviluppo e manutenzione portale SIAC (Sistema Integrato Amministrazione Contabile) | Piattaforma Gemini:Sviluppo piattaforma web monitoraggio reti e servizi comunicazione | Modernizzazione SIAC con Angular:Migrazione tecnologia legacy JSP a SPA moderna con Angular 2+"
     },
     {
-      "job_title": "",
-      "company": "",
-      "dates": "",
-      "description": ""
+      "job_title": "Stagista - Sviluppatore RPA",
+      "company": "Everis (ora NTT Data)",
+      "dates": "Lug 2018 Nov 2018",
+      "description": "Stage Settore Tecnologico:Creazione e ottimizzazione processi Robotic Process Automation (RPA) | Sviluppo Bot Blue Prism:Configurazione bot per processi aziendali ripetitivi | Scripting Visual Basic:Sviluppo script VBA per automazione Microsoft Office"
     }
   ],
   "education": [
     {
-      "qualification": "",
-      "dates": "",
-      "details": ""
+      "qualification": "Laurea Triennale in Informatica",
+      "dates": "2015 2018",
+      "details": "Università degli Studi di Roma Tor Vergata - 110/110 con Lode. Tesi: Sviluppo di applicazioni web moderne con architetture microservizi."
     },
     {
-      "qualification": "",
-      "dates": "",
-      "details": ""
+      "qualification": "AWS Certified Solutions Architect Associate",
+      "dates": "2023 2023",
+      "details": "Amazon Web Services - Certificazione professionale AWS (ID: AWS-SAA-2023-001). Preparazione intensiva di 3 mesi."
     },
     {
-      "qualification": "",
-      "dates": "",
-      "details": ""
+      "qualification": "Angular Certified Developer",
+      "dates": "2023 2023",
+      "details": "Google Developers - Certificazione ufficiale Google per Angular framework."
     },
     {
-      "qualification": "",
-      "dates": "",
-      "details": ""
+      "qualification": "Docker Certified Associate",
+      "dates": "2022 2022",
+      "details": "Docker Inc. - Certificazione Docker per containerizzazione e orchestrazione."
     },
     {
-      "qualification": "",
-      "dates": "",
-      "details": ""
+      "qualification": "Advanced React & Redux Masterclass",
+      "dates": "2022 2022",
+      "details": "Udemy - Stephen Grider - Corso avanzato di 2 mesi su React e Redux."
     },
     {
-      "qualification": "",
-      "dates": "",
-      "details": ""
+      "qualification": "Docker & Kubernetes Fundamentals",
+      "dates": "2021 2021",
+      "details": "Linux Academy - Corso intensivo di 1 mese su Docker e Kubernetes."
     },
     {
-      "qualification": "",
-      "dates": "",
-      "details": ""
+      "qualification": "Corso Java 8 Enterprise Edition",
+      "dates": "2018 2018",
+      "details": "Oracle University - Corso ufficiale Oracle su Java Enterprise Edition."
     }
   ],
   "certifications": [],

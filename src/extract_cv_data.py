@@ -114,19 +114,26 @@ def extract_experience(soup):
     for section in experience_sections:
         items = section.find_all('div', class_='experience-item')
         for item in items:
-            job_details = item.find('div', class_='job-details')
-            if not job_details:
-                continue
-
-            job_title_tag = job_details.find('div', class_='job-title')
-            dates_tag = job_details.find('div', class_='dates')
-            company_tag = item.find('div', class_='company-name')
-            description_tag = item.find('div', class_='description-content')
-
+            # Job title - cerca span.job-title
+            job_title_tag = item.find('span', class_='job-title')
             job_title = clean_text(job_title_tag.get_text()) if job_title_tag else ""
+
+            # Dates - cerca span.dates
+            dates_tag = item.find('span', class_='dates')
             dates = clean_text(dates_tag.get_text()) if dates_tag else ""
+
+            # Company - cerca span.company-name-inline
+            company_tag = item.find('span', class_='company-name-inline')
             company = clean_text(company_tag.get_text()) if company_tag else ""
-            description = clean_text(description_tag.get_text()) if description_tag else ""
+
+            # Description - cerca ul.achievements-list
+            achievements_list = item.find('ul', class_='achievements-list')
+            description = ""
+            if achievements_list:
+                achievements = []
+                for li in achievements_list.find_all('li'):
+                    achievements.append(clean_text(li.get_text()))
+                description = " | ".join(achievements)
 
             experiences.append({
                 "job_title": job_title,
@@ -140,28 +147,36 @@ def extract_experience(soup):
 def extract_education(soup):
     """Estrae formazione"""
     education = []
-    education_sections = soup.find_all('section', class_='education-section')
+    # Cerca education items in tutto il documento
+    items = soup.find_all('div', class_='education-item')
 
-    for section in education_sections:
-        items = section.find_all('div', class_='education-item')
-        for item in items:
-            education_details = item.find('div', class_='education-details')
-            if not education_details:
-                continue
+    for item in items:
+        # Qualification - cerca span.qualification
+        qualification_tag = item.find('span', class_='qualification')
+        qualification = clean_text(qualification_tag.get_text()) if qualification_tag else ""
 
-            qualification_tag = education_details.find('div', class_='qualification')
-            dates_tag = education_details.find('div', class_='dates')
-            details_tag = item.find('div', class_='details-text')
+        # Dates - cerca span.dates
+        dates_tag = item.find('span', class_='dates')
+        dates = clean_text(dates_tag.get_text()) if dates_tag else ""
 
-            qualification = clean_text(qualification_tag.get_text()) if qualification_tag else ""
-            dates = clean_text(dates_tag.get_text()) if dates_tag else ""
-            details = clean_text(details_tag.get_text()) if details_tag else ""
+        # Institution - cerca p.institution
+        institution_tag = item.find('p', class_='institution')
+        institution = clean_text(institution_tag.get_text()) if institution_tag else ""
 
-            education.append({
-                "qualification": qualification,
-                "dates": dates,
-                "details": details
-            })
+        # Details - cerca p.details-text
+        details_tag = item.find('p', class_='details-text')
+        details = clean_text(details_tag.get_text()) if details_tag else ""
+
+        # Combina institution e details
+        full_details = institution
+        if details:
+            full_details = f"{institution} - {details}" if institution else details
+
+        education.append({
+            "qualification": qualification,
+            "dates": dates,
+            "details": full_details
+        })
 
     return education
 
@@ -245,7 +260,7 @@ def extract_footer(soup):
 
 def main():
     """Main extraction logic"""
-    cv_path = Path(__file__).parent / "CV_LAVORO.html"
+    cv_path = Path(__file__).parent.parent / "backup" / "CV_LAVORO.html"
 
     print(f"Reading CV from: {cv_path}")
     with open(cv_path, 'r', encoding='utf-8') as f:
