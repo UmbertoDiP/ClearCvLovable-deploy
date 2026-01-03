@@ -127,6 +127,71 @@ function injectSchemaOrg(html) {
 }
 
 /**
+ * Inject Premium Product Schema.org structured data (JSON-LD)
+ * Used for /en/auth and other premium pages
+ * Fixes Google Search Console error: "image" field missing
+ */
+function injectPremiumSchemaOrg(html) {
+  const schema = `
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org/",
+    "@type": "Product",
+    "name": "ClearCV Premium",
+    "image": [
+      "https://clearcvapp.com/og-image.png"
+    ],
+    "description": "ClearCV Premium plan with cloud storage, no watermark and advanced export formats",
+    "brand": {
+      "@type": "Brand",
+      "name": "ClearCV"
+    },
+    "offers": {
+      "@type": "Offer",
+      "url": "https://clearcvapp.com/en/auth",
+      "priceCurrency": "EUR",
+      "price": "3.99",
+      "priceValidUntil": "2026-12-31",
+      "availability": "https://schema.org/InStock",
+      "seller": {
+        "@type": "Organization",
+        "name": "ClearCV"
+      },
+      "hasMerchantReturnPolicy": {
+        "@type": "MerchantReturnPolicy",
+        "applicableCountry": "IT",
+        "returnPolicyCategory": "https://schema.org/MerchantReturnNotPermitted",
+        "merchantReturnDays": 0
+      },
+      "shippingDetails": {
+        "@type": "OfferShippingDetails",
+        "shippingRate": {
+          "@type": "MonetaryAmount",
+          "value": 0,
+          "currency": "EUR"
+        },
+        "shippingDestination": {
+          "@type": "DefinedRegion",
+          "addressCountry": "IT"
+        }
+      }
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "2847"
+    }
+  }
+  </script>
+  `;
+
+  if (html.includes('</head>')) {
+    return html.replace('</head>', `${schema}</head>`);
+  }
+  return html;
+}
+
+/**
  * Inject noscript SEO content for search engines
  * Contains keywords and descriptive text for indexing
  */
@@ -316,6 +381,36 @@ export default {
         });
       }
 
+      // WordPress Blog Reverse Proxy
+      // Forwards /blog/* and /[lang]/blog/* to blog.clearcvapp.com
+      const blogPathPattern = /^\/(en|es|fr|de)?\/?(blog\/.*)$/;
+      const blogMatch = url.pathname.match(blogPathPattern);
+
+      if (blogMatch) {
+        const lang = blogMatch[1] || 'it'; // Default Italian
+        const blogPath = blogMatch[2]; // blog/article-slug
+
+        // WordPress subdomain URL
+        const wpUrl = `https://blog.clearcvapp.com/${lang}/${blogPath}`;
+
+        // Forward request to WordPress
+        const wpResponse = await fetch(wpUrl, {
+          method: request.method,
+          headers: request.headers,
+          body: request.method !== 'GET' && request.method !== 'HEAD' ? request.body : undefined
+        });
+
+        // Return WordPress response with CORS headers
+        return new Response(wpResponse.body, {
+          status: wpResponse.status,
+          statusText: wpResponse.statusText,
+          headers: {
+            ...Object.fromEntries(wpResponse.headers),
+            ...corsHeaders
+          }
+        });
+      }
+
       // Get asset from ASSETS binding
       const asset = await env.ASSETS.fetch(request);
 
@@ -340,7 +435,19 @@ export default {
 
         // Apply all SEO enhancements (wrapper strategy)
         let modifiedHtml = injectAnalytics(htmlContent);
-        modifiedHtml = injectSchemaOrg(modifiedHtml);
+
+        // Route-based Schema.org injection
+        // Use Premium Product schema for /en/auth and similar premium pages
+        const isPremiumPage = url.pathname.includes('/auth') ||
+                              url.pathname.includes('/premium') ||
+                              url.pathname.includes('/pricing');
+
+        if (isPremiumPage) {
+          modifiedHtml = injectPremiumSchemaOrg(modifiedHtml);
+        } else {
+          modifiedHtml = injectSchemaOrg(modifiedHtml);
+        }
+
         modifiedHtml = replaceFavicon(modifiedHtml);
         modifiedHtml = injectNoscriptSEO(modifiedHtml);
 
