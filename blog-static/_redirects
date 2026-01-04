@@ -1,0 +1,23 @@
+# Cloudflare Pages Redirects
+# Multilingual blog routing
+
+# Redirect root blog to Italian by default
+/blog                /it/blog/              302
+/blog/               /it/blog/              302
+
+# Redirect old URLs without language prefix (if any exist)
+/blog/*              /it/blog/:splat        301
+
+# Trailing slash redirects (consistency)
+/it/blog             /it/blog/              301
+/en/blog             /en/blog/              301
+/es/blog             /es/blog/              301
+/fr/blog             /fr/blog/              301
+/de/blog             /de/blog/              301
+
+# Language detection fallback (optional - uncomment if needed)
+# / /it/ 302 Language=it
+# / /en/ 302 Language=en
+# / /es/ 302 Language=es
+# / /fr/ 302 Language=fr
+# / /de/ 302 Language=de

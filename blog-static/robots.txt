@@ -1,0 +1,31 @@
+# Robots.txt for ClearCV Blog
+# Updated: 2026-01-04
+# Multilingual path-based structure
+
+User-agent: *
+Allow: /
+
+# Allow all blog content in all languages
+Allow: /it/blog/
+Allow: /en/blog/
+Allow: /es/blog/
+Allow: /fr/blog/
+Allow: /de/blog/
+
+# Disallow template and build files
+Disallow: /_templates/
+Disallow: /_content/
+Disallow: /_build/
+Disallow: /.git/
+Disallow: /.credentials/
+
+# Sitemap location
+Sitemap: https://clearcvapp.com/sitemap.xml
+Sitemap: https://clearcvapp.com/it/blog/sitemap.xml
+Sitemap: https://clearcvapp.com/en/blog/sitemap.xml
+Sitemap: https://clearcvapp.com/es/blog/sitemap.xml
+Sitemap: https://clearcvapp.com/fr/blog/sitemap.xml
+Sitemap: https://clearcvapp.com/de/blog/sitemap.xml
+
+# Crawl-delay (optional, adjust if needed)
+# Crawl-delay: 1

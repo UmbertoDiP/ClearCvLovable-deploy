@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ClearCV Blog - Guide, consigli e template per creare il CV perfetto. Articoli su curriculum vitae, lettere di presentazione e ricerca lavoro.">
+    <title>Blog ClearCV - Guide CV e Curriculum Vitae</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #2d3748;
+            background: #f7fafc;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .lang-switcher {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .lang-switcher a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .lang-switcher a.active {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .lang-switcher a:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .article-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .article-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .article-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+
+        .article-content {
+            padding: 25px;
+        }
+
+        .article-meta {
+            color: #718096;
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+        }
+
+        .article-title {
+            font-size: 1.4rem;
+            color: #1a202c;
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+
+        .article-title a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .article-title a:hover {
+            color: #667eea;
+        }
+
+        .article-excerpt {
+            color: #4a5568;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .article-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: #edf2f7;
+            color: #4a5568;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            margin-top: 60px;
+            border-radius: 15px;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: #667eea;
+            padding: 18px 50px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-top: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        footer {
+            background: #2d3748;
+            color: white;
+            padding: 40px 20px;
+            margin-top: 60px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .articles-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-section h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>📄 Blog ClearCV</h1>
+        <p class="subtitle">Guide, consigli e template per creare il CV perfetto</p>
+
+        <div class="lang-switcher">
+            <a href="/it/blog/" class="active">🇮🇹 Italiano</a>
+            <a href="/en/blog/">🇬🇧 English</a>
+            <a href="/es/blog/">🇪🇸 Español</a>
+            <a href="/fr/blog/">🇫🇷 Français</a>
+            <a href="/de/blog/">🇩🇪 Deutsch</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <h2 style="font-size: 2rem; margin-bottom: 10px;">Ultimi Articoli</h2>
+        <p style="color: #718096; margin-bottom: 30px;">Guide complete e consigli pratici per il tuo curriculum vitae</p>
+
+        <div class="articles-grid">
+            <!-- Article 1 -->
+            <div class="article-card">
+                <div class="article-image">📝</div>
+                <div class="article-content">
+                    <div class="article-meta">📅 3 Gennaio 2026 • ⏱️ 8 min lettura</div>
+                    <h3 class="article-title">
+                        <a href="/it/blog/come-scrivere-cv-perfetto.html">Come Scrivere un CV Perfetto - Guida Completa 2026</a>
+                    </h3>
+                    <p class="article-excerpt">
+                        Guida completa su come creare un curriculum vitae vincente. Struttura, template, errori da evitare e consigli per superare i filtri ATS.
+                    </p>
+                    <div class="article-tags">
+                        <span class="tag">Guide CV</span>
+                        <span class="tag">Tutorial</span>
+                        <span class="tag">ATS</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Placeholder Article 2 -->
+            <div class="article-card">
+                <div class="article-image">📋</div>
+                <div class="article-content">
+                    <div class="article-meta">📅 Prossimamente • ⏱️ 6 min lettura</div>
+                    <h3 class="article-title">
+                        <a href="#">CV Europass 2026: Guida Completa e Template Gratis</a>
+                    </h3>
+                    <p class="article-excerpt">
+                        Tutto quello che devi sapere sul formato Europass: quando usarlo, come compilarlo e download template compilabili gratuiti.
+                    </p>
+                    <div class="article-tags">
+                        <span class="tag">Europass</span>
+                        <span class="tag">Template</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Placeholder Article 3 -->
+            <div class="article-card">
+                <div class="article-image">💡</div>
+                <div class="article-content">
+                    <div class="article-meta">📅 Prossimamente • ⏱️ 7 min lettura</div>
+                    <h3 class="article-title">
+                        <a href="#">10 Errori da Evitare nel Tuo CV (+ Come Correggerli)</a>
+                    </h3>
+                    <p class="article-excerpt">
+                        Gli errori più comuni che rovinano un curriculum vitae e come evitarli. Consigli pratici per migliorare subito il tuo CV.
+                    </p>
+                    <div class="article-tags">
+                        <span class="tag">Errori</span>
+                        <span class="tag">Tips</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Placeholder Article 4 -->
+            <div class="article-card">
+                <div class="article-image">🎯</div>
+                <div class="article-content">
+                    <div class="article-meta">📅 Prossimamente • ⏱️ 5 min lettura</div>
+                    <h3 class="article-title">
+                        <a href="#">CV per Neolaureati: Template e Consigli Pratici</a>
+                    </h3>
+                    <p class="article-excerpt">
+                        Come scrivere un CV efficace senza esperienza lavorativa. Guida specifica per laureati alla prima ricerca di lavoro.
+                    </p>
+                    <div class="article-tags">
+                        <span class="tag">Neolaureati</span>
+                        <span class="tag">Entry Level</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Placeholder Article 5 -->
+            <div class="article-card">
+                <div class="article-image">🚀</div>
+                <div class="article-content">
+                    <div class="article-meta">📅 Prossimamente • ⏱️ 6 min lettura</div>
+                    <h3 class="article-title">
+                        <a href="#">CV con Intelligenza Artificiale: Come Funziona ClearCV</a>
+                    </h3>
+                    <p class="article-excerpt">
+                        Scopri come l'AI può aiutarti a creare un curriculum professionale in pochi minuti. Tutorial completo su ClearCV.
+                    </p>
+                    <div class="article-tags">
+                        <span class="tag">AI</span>
+                        <span class="tag">Tecnologia</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Placeholder Article 6 -->
+            <div class="article-card">
+                <div class="article-image">✉️</div>
+                <div class="article-content">
+                    <div class="article-meta">📅 Prossimamente • ⏱️ 5 min lettura</div>
+                    <h3 class="article-title">
+                        <a href="#">Lettera di Presentazione: Esempi e Template 2026</a>
+                    </h3>
+                    <p class="article-excerpt">
+                        Come scrivere una cover letter efficace che accompagni il tuo CV. Esempi pratici e template personalizzabili.
+                    </p>
+                    <div class="article-tags">
+                        <span class="tag">Cover Letter</span>
+                        <span class="tag">Template</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="cta-section">
+            <h2>Pronto a Creare il Tuo CV Perfetto?</h2>
+            <p style="font-size: 1.1rem; margin-top: 15px; opacity: 0.95;">
+                Genera un curriculum professionale in 5 minuti con l'intelligenza artificiale di ClearCV.<br>
+                Template ottimizzati, suggerimenti personalizzati e export ATS-friendly.
+            </p>
+            <a href="https://clearcvapp.com" class="cta-button">Inizia Gratis →</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 ClearCV Blog - Tutti i diritti riservati</p>
+        <p style="margin-top: 10px; font-size: 0.9rem; opacity: 0.8;">
+            <a href="/" style="color: white; margin: 0 10px;">Home</a> |
+            <a href="/it/blog/" style="color: white; margin: 0 10px;">Blog IT</a> |
+            <a href="/en/blog/" style="color: white; margin: 0 10px;">Blog EN</a> |
+            <a href="https://clearcvapp.com" style="color: white; margin: 0 10px;">App ClearCV</a>
+        </p>
+        <p style="margin-top: 20px; font-size: 0.85rem; opacity: 0.6;">
+            Powered by Cloudflare Pages • 100% Free • Static Site Generation
+        </p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+    <!-- Blog Homepage - Italian -->
+    <url>
+        <loc>https://clearcvapp.com/it/blog/</loc>
+        <lastmod>2026-01-04</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+        <xhtml:link rel="alternate" hreflang="it" href="https://clearcvapp.com/it/blog/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://clearcvapp.com/en/blog/"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://clearcvapp.com/es/blog/"/>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://clearcvapp.com/fr/blog/"/>
+        <xhtml:link rel="alternate" hreflang="de" href="https://clearcvapp.com/de/blog/"/>
+    </url>
+
+    <!-- Blog Homepage - English -->
+    <url>
+        <loc>https://clearcvapp.com/en/blog/</loc>
+        <lastmod>2026-01-04</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+        <xhtml:link rel="alternate" hreflang="it" href="https://clearcvapp.com/it/blog/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://clearcvapp.com/en/blog/"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://clearcvapp.com/es/blog/"/>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://clearcvapp.com/fr/blog/"/>
+        <xhtml:link rel="alternate" hreflang="de" href="https://clearcvapp.com/de/blog/"/>
+    </url>
+
+    <!-- Blog Homepage - Spanish -->
+    <url>
+        <loc>https://clearcvapp.com/es/blog/</loc>
+        <lastmod>2026-01-04</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+        <xhtml:link rel="alternate" hreflang="it" href="https://clearcvapp.com/it/blog/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://clearcvapp.com/en/blog/"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://clearcvapp.com/es/blog/"/>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://clearcvapp.com/fr/blog/"/>
+        <xhtml:link rel="alternate" hreflang="de" href="https://clearcvapp.com/de/blog/"/>
+    </url>
+
+    <!-- Blog Homepage - French -->
+    <url>
+        <loc>https://clearcvapp.com/fr/blog/</loc>
+        <lastmod>2026-01-04</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+        <xhtml:link rel="alternate" hreflang="it" href="https://clearcvapp.com/it/blog/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://clearcvapp.com/en/blog/"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://clearcvapp.com/es/blog/"/>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://clearcvapp.com/fr/blog/"/>
+        <xhtml:link rel="alternate" hreflang="de" href="https://clearcvapp.com/de/blog/"/>
+    </url>
+
+    <!-- Blog Homepage - German -->
+    <url>
+        <loc>https://clearcvapp.com/de/blog/</loc>
+        <lastmod>2026-01-04</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+        <xhtml:link rel="alternate" hreflang="it" href="https://clearcvapp.com/it/blog/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://clearcvapp.com/en/blog/"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://clearcvapp.com/es/blog/"/>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://clearcvapp.com/fr/blog/"/>
+        <xhtml:link rel="alternate" hreflang="de" href="https://clearcvapp.com/de/blog/"/>
+    </url>
+
+    <!-- Article: Come Scrivere CV Perfetto - Italian -->
+    <url>
+        <loc>https://clearcvapp.com/it/blog/come-scrivere-cv-perfetto</loc>
+        <lastmod>2026-01-04</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="it" href="https://clearcvapp.com/it/blog/come-scrivere-cv-perfetto"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://clearcvapp.com/en/blog/how-to-write-perfect-resume"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://clearcvapp.com/es/blog/como-escribir-cv-perfecto"/>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://clearcvapp.com/fr/blog/comment-ecrire-cv-parfait"/>
+        <xhtml:link rel="alternate" hreflang="de" href="https://clearcvapp.com/de/blog/wie-man-perfekten-lebenslauf-schreibt"/>
+    </url>
+
+    <!-- Article: How to Write Perfect Resume - English -->
+    <url>
+        <loc>https://clearcvapp.com/en/blog/how-to-write-perfect-resume</loc>
+        <lastmod>2026-01-04</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="it" href="https://clearcvapp.com/it/blog/come-scrivere-cv-perfetto"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://clearcvapp.com/en/blog/how-to-write-perfect-resume"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://clearcvapp.com/es/blog/como-escribir-cv-perfecto"/>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://clearcvapp.com/fr/blog/comment-ecrire-cv-parfait"/>
+        <xhtml:link rel="alternate" hreflang="de" href="https://clearcvapp.com/de/blog/wie-man-perfekten-lebenslauf-schreibt"/>
+    </url>
+
+    <!-- Article: Como Escribir CV Perfecto - Spanish -->
+    <url>
+        <loc>https://clearcvapp.com/es/blog/como-escribir-cv-perfecto</loc>
+        <lastmod>2026-01-04</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="it" href="https://clearcvapp.com/it/blog/come-scrivere-cv-perfetto"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://clearcvapp.com/en/blog/how-to-write-perfect-resume"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://clearcvapp.com/es/blog/como-escribir-cv-perfecto"/>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://clearcvapp.com/fr/blog/comment-ecrire-cv-parfait"/>
+        <xhtml:link rel="alternate" hreflang="de" href="https://clearcvapp.com/de/blog/wie-man-perfekten-lebenslauf-schreibt"/>
+    </url>
+
+    <!-- Article: Comment Écrire CV Parfait - French -->
+    <url>
+        <loc>https://clearcvapp.com/fr/blog/comment-ecrire-cv-parfait</loc>
+        <lastmod>2026-01-04</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="it" href="https://clearcvapp.com/it/blog/come-scrivere-cv-perfetto"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://clearcvapp.com/en/blog/how-to-write-perfect-resume"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://clearcvapp.com/es/blog/como-escribir-cv-perfecto"/>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://clearcvapp.com/fr/blog/comment-ecrire-cv-parfait"/>
+        <xhtml:link rel="alternate" hreflang="de" href="https://clearcvapp.com/de/blog/wie-man-perfekten-lebenslauf-schreibt"/>
+    </url>
+
+    <!-- Article: Wie Man Perfekten Lebenslauf Schreibt - German -->
+    <url>
+        <loc>https://clearcvapp.com/de/blog/wie-man-perfekten-lebenslauf-schreibt</loc>
+        <lastmod>2026-01-04</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="it" href="https://clearcvapp.com/it/blog/come-scrivere-cv-perfetto"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://clearcvapp.com/en/blog/how-to-write-perfect-resume"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://clearcvapp.com/es/blog/como-escribir-cv-perfecto"/>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://clearcvapp.com/fr/blog/comment-ecrire-cv-parfait"/>
+        <xhtml:link rel="alternate" hreflang="de" href="https://clearcvapp.com/de/blog/wie-man-perfekten-lebenslauf-schreibt"/>
+    </url>
+
+</urlset>

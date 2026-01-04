@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+    <!-- Italian Blog Homepage -->
+    <url>
+        <loc>https://clearcvapp.com/it/blog/</loc>
+        <lastmod>2026-01-04</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+        <xhtml:link rel="alternate" hreflang="it" href="https://clearcvapp.com/it/blog/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://clearcvapp.com/en/blog/"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://clearcvapp.com/es/blog/"/>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://clearcvapp.com/fr/blog/"/>
+        <xhtml:link rel="alternate" hreflang="de" href="https://clearcvapp.com/de/blog/"/>
+    </url>
+
+    <!-- Italian Articles -->
+    <url>
+        <loc>https://clearcvapp.com/it/blog/come-scrivere-cv-perfetto</loc>
+        <lastmod>2026-01-04</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="it" href="https://clearcvapp.com/it/blog/come-scrivere-cv-perfetto"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://clearcvapp.com/en/blog/how-to-write-perfect-resume"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://clearcvapp.com/es/blog/como-escribir-cv-perfetto"/>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://clearcvapp.com/fr/blog/comment-ecrire-cv-parfait"/>
+        <xhtml:link rel="alternate" hreflang="de" href="https://clearcvapp.com/de/blog/wie-man-perfekten-lebenslauf-schreibt"/>
+    </url>
+
+</urlset>

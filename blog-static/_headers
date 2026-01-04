@@ -1,0 +1,73 @@
+# Cloudflare Pages Custom Headers
+# SEO optimization for multilingual blog
+
+# Global security and performance headers
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+  Cache-Control: public, max-age=3600, s-maxage=7200
+
+# Italian blog
+/it/blog/*
+  Content-Language: it
+  Link: <https://clearcvapp.com/it/blog/>; rel="alternate"; hreflang="it"
+  Link: <https://clearcvapp.com/en/blog/>; rel="alternate"; hreflang="en"
+  Link: <https://clearcvapp.com/es/blog/>; rel="alternate"; hreflang="es"
+  Link: <https://clearcvapp.com/fr/blog/>; rel="alternate"; hreflang="fr"
+  Link: <https://clearcvapp.com/de/blog/>; rel="alternate"; hreflang="de"
+
+# English blog
+/en/blog/*
+  Content-Language: en
+  Link: <https://clearcvapp.com/it/blog/>; rel="alternate"; hreflang="it"
+  Link: <https://clearcvapp.com/en/blog/>; rel="alternate"; hreflang="en"
+  Link: <https://clearcvapp.com/es/blog/>; rel="alternate"; hreflang="es"
+  Link: <https://clearcvapp.com/fr/blog/>; rel="alternate"; hreflang="fr"
+  Link: <https://clearcvapp.com/de/blog/>; rel="alternate"; hreflang="de"
+
+# Spanish blog
+/es/blog/*
+  Content-Language: es
+  Link: <https://clearcvapp.com/it/blog/>; rel="alternate"; hreflang="it"
+  Link: <https://clearcvapp.com/en/blog/>; rel="alternate"; hreflang="en"
+  Link: <https://clearcvapp.com/es/blog/>; rel="alternate"; hreflang="es"
+  Link: <https://clearcvapp.com/fr/blog/>; rel="alternate"; hreflang="fr"
+  Link: <https://clearcvapp.com/de/blog/>; rel="alternate"; hreflang="de"
+
+# French blog
+/fr/blog/*
+  Content-Language: fr
+  Link: <https://clearcvapp.com/it/blog/>; rel="alternate"; hreflang="it"
+  Link: <https://clearcvapp.com/en/blog/>; rel="alternate"; hreflang="en"
+  Link: <https://clearcvapp.com/es/blog/>; rel="alternate"; hreflang="es"
+  Link: <https://clearcvapp.com/fr/blog/>; rel="alternate"; hreflang="fr"
+  Link: <https://clearcvapp.com/de/blog/>; rel="alternate"; hreflang="de"
+
+# German blog
+/de/blog/*
+  Content-Language: de
+  Link: <https://clearcvapp.com/it/blog/>; rel="alternate"; hreflang="it"
+  Link: <https://clearcvapp.com/en/blog/>; rel="alternate"; hreflang="en"
+  Link: <https://clearcvapp.com/es/blog/>; rel="alternate"; hreflang="es"
+  Link: <https://clearcvapp.com/fr/blog/>; rel="alternate"; hreflang="fr"
+  Link: <https://clearcvapp.com/de/blog/>; rel="alternate"; hreflang="de"
+
+# Static assets (longer cache)
+/_templates/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Sitemap (shorter cache for updates)
+/sitemap.xml
+  Content-Type: application/xml
+  Cache-Control: public, max-age=3600
+
+/*/blog/sitemap.xml
+  Content-Type: application/xml
+  Cache-Control: public, max-age=3600
+
+# Robots.txt
+/robots.txt
+  Cache-Control: public, max-age=86400

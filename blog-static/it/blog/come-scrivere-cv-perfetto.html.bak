@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Guida completa 2026 su come scrivere un CV perfetto. Template, esempi e consigli pratici per creare un curriculum vitae vincente.">
+    <meta name="keywords" content="come scrivere cv perfetto, curriculum vitae, cv gratis, cv maker, scrivere curriculum">
+    <title>Come Scrivere un CV Perfetto - Guida Completa 2026 | ClearCV Blog</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.8;
+            color: #2d3748;
+            background: #f7fafc;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-decoration: none;
+            color: white;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 30px;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+
+        nav a:hover {
+            opacity: 0.8;
+        }
+
+        .lang-switcher {
+            display: flex;
+            gap: 10px;
+        }
+
+        .lang-switcher a {
+            padding: 5px 10px;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+
+        .lang-switcher a.active {
+            background: rgba(255,255,255,0.2);
+        }
+
+        article {
+            max-width: 800px;
+            margin: 40px auto;
+            background: white;
+            padding: 60px;
+            border-radius: 10px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+        }
+
+        .article-meta {
+            color: #718096;
+            font-size: 0.9rem;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .article-meta span {
+            margin-right: 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #1a202c;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: #2d3748;
+            margin: 40px 0 20px;
+            padding-top: 20px;
+        }
+
+        h3 {
+            font-size: 1.3rem;
+            color: #4a5568;
+            margin: 30px 0 15px;
+        }
+
+        p {
+            margin-bottom: 20px;
+            color: #4a5568;
+        }
+
+        ul, ol {
+            margin: 20px 0 20px 30px;
+            color: #4a5568;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        .tip-box {
+            background: #edf2f7;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 5px;
+        }
+
+        .tip-box h3 {
+            color: #667eea;
+            margin-top: 0;
+        }
+
+        .cta-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 50px 0;
+        }
+
+        .cta-box h3 {
+            color: white;
+            margin-top: 0;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: #667eea;
+            padding: 15px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .faq {
+            margin-top: 50px;
+        }
+
+        .faq-item {
+            margin-bottom: 30px;
+        }
+
+        .faq-item h3 {
+            color: #667eea;
+        }
+
+        footer {
+            background: #2d3748;
+            color: white;
+            padding: 40px 20px;
+            margin-top: 60px;
+            text-align: center;
+        }
+
+        .breadcrumb {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 20px;
+            font-size: 0.9rem;
+            color: #718096;
+        }
+
+        .breadcrumb a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            article {
+                padding: 30px 20px;
+                margin: 20px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            nav {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <a href="/" class="logo">📄 ClearCV Blog</a>
+            <nav>
+                <a href="/">Home</a>
+                <a href="/it/blog/">Blog</a>
+                <a href="https://clearcvapp.com">App</a>
+            </nav>
+            <div class="lang-switcher">
+                <a href="/it/blog/come-scrivere-cv-perfetto.html" class="active">IT</a>
+                <a href="/en/blog/how-to-write-perfect-cv.html">EN</a>
+                <a href="/es/blog/como-escribir-cv-perfecto.html">ES</a>
+                <a href="/fr/blog/comment-ecrire-cv-parfait.html">FR</a>
+                <a href="/de/blog/wie-schreibe-perfekter-lebenslauf.html">DE</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="breadcrumb">
+        <a href="/">Home</a> → <a href="/it/blog/">Blog</a> → Come Scrivere un CV Perfetto
+    </div>
+
+    <article>
+        <div class="article-meta">
+            <span>📅 3 Gennaio 2026</span>
+            <span>👤 ClearCV Blog</span>
+            <span>🏷️ Guide CV</span>
+            <span>⏱️ 8 min lettura</span>
+        </div>
+
+        <h1>Come Scrivere un CV Perfetto - Guida Completa 2026</h1>
+
+        <p>Scrivere un curriculum vitae perfetto è fondamentale per distinguersi nel mercato del lavoro moderno. In questa guida completa scoprirai come creare un CV efficace che catturi l'attenzione dei recruiter e aumenti le tue possibilità di essere selezionato per un colloquio.</p>
+
+        <h2>Cosa Troverai in Questa Guida</h2>
+        <ul>
+            <li>Struttura ideale di un CV professionale</li>
+            <li>Errori comuni da evitare</li>
+            <li>Consigli per CV ATS-friendly</li>
+            <li>Template e esempi pratici</li>
+            <li>FAQ e risposte degli esperti</li>
+        </ul>
+
+        <h2>1. Struttura del CV Perfetto</h2>
+
+        <p>Un curriculum vitae efficace deve seguire una struttura chiara e professionale. Ecco gli elementi essenziali:</p>
+
+        <h3>Dati Personali</h3>
+        <ul>
+            <li><strong>Nome e Cognome</strong> - In evidenza, font grande</li>
+            <li><strong>Contatti</strong> - Email professionale, telefono, LinkedIn</li>
+            <li><strong>Località</strong> - Città e provincia (opzionale: indirizzo completo)</li>
+        </ul>
+
+        <div class="tip-box">
+            <h3>💡 Suggerimento Pro</h3>
+            <p>Usa un'email professionale (nome.cognome@email.com) ed evita indirizzi come "rockstar96@hotmail.com". Primo impatto conta!</p>
+        </div>
+
+        <h3>Profilo Professionale</h3>
+        <p>Inizia con un breve sommario (3-4 righe) che riassume:</p>
+        <ul>
+            <li>La tua esperienza principale</li>
+            <li>Le competenze chiave</li>
+            <li>Il tuo obiettivo professionale</li>
+        </ul>
+
+        <p><strong>Esempio:</strong> "Sviluppatore Full Stack con 5 anni di esperienza in React e Node.js. Specializzato in applicazioni web scalabili per startup fintech. Appassionato di clean code e best practices."</p>
+
+        <h3>Esperienza Professionale</h3>
+        <p>La sezione più importante! Ordine cronologico inverso (dal più recente):</p>
+        <ul>
+            <li><strong>Posizione</strong> - Titolo del ruolo</li>
+            <li><strong>Azienda</strong> - Nome e settore</li>
+            <li><strong>Date</strong> - Mese/Anno inizio - fine</li>
+            <li><strong>Responsabilità</strong> - Bullet points con risultati misurabili</li>
+        </ul>
+
+        <div class="tip-box">
+            <h3>✅ Formula Magica per i Risultati</h3>
+            <p>Usa il formato: <strong>Azione + Risultato + Metrica</strong></p>
+            <p>❌ Male: "Gestivo il team di sviluppo"<br>
+            ✅ Bene: "Coordinato team di 5 sviluppatori aumentando la produttività del 30% in 6 mesi"</p>
+        </div>
+
+        <h3>Formazione</h3>
+        <ul>
+            <li>Laurea/Diploma con voto (se recente e buono)</li>
+            <li>Università/Istituto</li>
+            <li>Anno di conseguimento</li>
+            <li>Tesi o progetti rilevanti (opzionale)</li>
+        </ul>
+
+        <h3>Competenze Tecniche</h3>
+        <p>Elenca le tue skills divise per categoria:</p>
+        <ul>
+            <li><strong>Linguaggi:</strong> JavaScript, Python, Java</li>
+            <li><strong>Framework:</strong> React, Node.js, Django</li>
+            <li><strong>Tools:</strong> Git, Docker, AWS</li>
+            <li><strong>Soft Skills:</strong> Leadership, Problem Solving, Team Work</li>
+        </ul>
+
+        <h2>2. Lunghezza Ideale del CV</h2>
+
+        <p>La lunghezza perfetta dipende dalla tua esperienza:</p>
+        <ul>
+            <li><strong>Junior (0-3 anni)</strong>: 1 pagina massimo</li>
+            <li><strong>Mid-level (3-7 anni)</strong>: 1-2 pagine</li>
+            <li><strong>Senior (7+ anni)</strong>: 2 pagine (max 3 se necessario)</li>
+        </ul>
+
+        <p><strong>Regola d'oro:</strong> Se non aggiunge valore, toglilo. Ogni riga deve convincere il recruiter che sei il candidato giusto.</p>
+
+        <h2>3. CV ATS-Friendly: Come Superare i Filtri Automatici</h2>
+
+        <p>Il 75% delle aziende usa sistemi ATS (Applicant Tracking System) per filtrare i CV. Ecco come superarli:</p>
+
+        <ul>
+            <li><strong>Formato semplice</strong> - Evita tabelle, colonne, header/footer complessi</li>
+            <li><strong>Font standard</strong> - Arial, Calibri, Times New Roman</li>
+            <li><strong>Keywords</strong> - Usa le parole esatte dell'annuncio di lavoro</li>
+            <li><strong>File PDF</strong> - Nome file: "Nome_Cognome_CV.pdf"</li>
+            <li><strong>No immagini</strong> - Gli ATS non le leggono</li>
+        </ul>
+
+        <div class="cta-box">
+            <h3>🚀 Crea il Tuo CV Perfetto con ClearCV</h3>
+            <p>Genera un CV professionale, ATS-friendly e personalizzabile in 5 minuti con intelligenza artificiale.</p>
+            <a href="https://clearcvapp.com" class="cta-button">Inizia Gratis →</a>
+        </div>
+
+        <h2>4. Errori Comuni da Evitare</h2>
+
+        <h3>❌ Errori di Contenuto</h3>
+        <ul>
+            <li><strong>Troppo generico</strong> - "Responsabile delle vendite" → "Aumentato vendite del 40% in 2 trimestri"</li>
+            <li><strong>Informazioni irrilevanti</strong> - Hobby non pertinenti (a meno che il lavoro lo richieda)</li>
+            <li><strong>Bugie</strong> - Tutto è verificabile. Mai inventare esperienze o competenze</li>
+            <li><strong>Errori grammaticali</strong> - Fai rileggere da qualcuno prima di inviare</li>
+        </ul>
+
+        <h3>❌ Errori di Formato</h3>
+        <ul>
+            <li>Font troppo piccoli (< 10pt) o troppo grandi (> 12pt)</li>
+            <li>Colori eccessivi o difficili da leggere</li>
+            <li>Layout confusionario senza gerarchia visiva</li>
+            <li>Foto non professionale (meglio evitare se non richiesta)</li>
+        </ul>
+
+        <h2>5. Template Consigliati</h2>
+
+        <p>I migliori template CV per settore:</p>
+
+        <ul>
+            <li><strong>IT/Tech</strong> - Layout moderno, sezione skills prominente</li>
+            <li><strong>Finance/Legal</strong> - Formato classico, sobrio</li>
+            <li><strong>Marketing/Creativo</strong> - Design accattivante ma leggibile</li>
+            <li><strong>Neolaureato</strong> - Focus su formazione e progetti</li>
+        </ul>
+
+        <p>Con <a href="https://clearcvapp.com" style="color: #667eea;">ClearCV</a> trovi template per ogni settore, ottimizzati per ATS e completamente personalizzabili.</p>
+
+        <h2>FAQ: Domande Frequenti sul CV Perfetto</h2>
+
+        <div class="faq">
+            <div class="faq-item">
+                <h3>Devo mettere la foto sul CV?</h3>
+                <p>In Italia non è obbligatoria. Se la inserisci, deve essere professionale (sfondo neutro, abbigliamento formale, sorriso naturale). Nei paesi anglosassoni è sconsigliata per leggi anti-discriminazione.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Quanto deve essere lungo un CV?</h3>
+                <p>1-2 pagine massimo. Solo se hai 10+ anni di esperienza rilevante puoi arrivare a 3 pagine. Ricorda: qualità > quantità.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>CV cronologico o funzionale?</h3>
+                <p>Il <strong>cronologico</strong> (esperienze in ordine temporale) è preferito dal 90% dei recruiter. Il funzionale (per competenze) si usa solo in casi specifici come cambio carriera o gap lavorativi.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Devo includere referenze?</h3>
+                <p>Non è necessario scriverle nel CV. Aggiungi "Referenze disponibili su richiesta" solo se rimane spazio. Prepara comunque una lista separata da fornire se richiesto.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Come personalizzare il CV per ogni lavoro?</h3>
+                <p>Leggi l'annuncio e identifica 5-7 keywords principali. Integrali naturalmente nel tuo profilo e nelle descrizioni delle esperienze. Adatta il titolo professionale a quello richiesto.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>CV in italiano o inglese?</h3>
+                <p>Dipende dall'azienda. Multinazionali o startup tech preferiscono inglese. PMI italiane preferiscono italiano. Se in dubbio, prepara entrambe le versioni.</p>
+            </div>
+        </div>
+
+        <h2>Conclusione: Il Tuo CV Perfetto Ti Aspetta</h2>
+
+        <p>Scrivere un CV perfetto richiede tempo e attenzione ai dettagli, ma seguendo questa guida hai tutti gli strumenti per creare un curriculum vincente. Ricorda:</p>
+
+        <ul>
+            <li>✅ Struttura chiara e professionale</li>
+            <li>✅ Risultati misurabili, non solo mansioni</li>
+            <li>✅ Ottimizzato per ATS</li>
+            <li>✅ Personalizzato per ogni posizione</li>
+            <li>✅ Zero errori grammaticali</li>
+        </ul>
+
+        <p><strong>Prossimo passo:</strong> Non partire da zero! Usa <a href="https://clearcvapp.com" style="color: #667eea; font-weight: 600;">ClearCV</a> per generare un CV professionale in 5 minuti con l'aiuto dell'intelligenza artificiale. Template ottimizzati, suggerimenti personalizzati e export in formato ATS-friendly.</p>
+
+        <div class="cta-box">
+            <h3>Pronto a Creare il Tuo CV Perfetto?</h3>
+            <p>Unisciti a migliaia di professionisti che hanno trovato lavoro grazie a ClearCV</p>
+            <a href="https://clearcvapp.com" class="cta-button">Crea il Tuo CV Gratis →</a>
+        </div>
+    </article>
+
+    <footer>
+        <p>&copy; 2026 ClearCV Blog - Tutti i diritti riservati</p>
+        <p style="margin-top: 10px; font-size: 0.9rem; opacity: 0.8;">
+            <a href="/" style="color: white; margin: 0 10px;">Home</a> |
+            <a href="/it/blog/" style="color: white; margin: 0 10px;">Blog</a> |
+            <a href="https://clearcvapp.com" style="color: white; margin: 0 10px;">App ClearCV</a>
+        </p>
+        <p style="margin-top: 20px; font-size: 0.85rem; opacity: 0.6;">
+            Powered by Cloudflare Pages • Static Site Generation
+        </p>
+    </footer>
+</body>
+</html>
