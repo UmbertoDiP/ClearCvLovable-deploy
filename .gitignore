@@ -31,3 +31,9 @@ Thumbs.db
 # Clear CV Integration (repo Git separato - non tracciare qui)
 clear-cv-integration/.git/
 clear-cv-integration/node_modules/
+
+# Blog exclusions
+.credentials/
+blog-local/wordpress-data/
+blog-local/db-data/
+blog-static/*.zip
