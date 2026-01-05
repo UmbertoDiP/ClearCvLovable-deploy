@@ -381,17 +381,88 @@ export default {
         });
       }
 
-      // WordPress Blog Reverse Proxy
-      // Forwards /blog/* and /[lang]/blog/* to blog.clearcvapp.com
-      const blogPathPattern = /^\/(en|es|fr|de)?\/?(blog\/.*)$/;
+      // API: Supported Languages (for blog generation)
+      if (url.pathname === '/api/languages') {
+        const languages = {
+          languages: ['it', 'en', 'es', 'fr', 'de'],
+          default: 'it',
+          labels: {
+            it: 'Italiano',
+            en: 'English',
+            es: 'Español',
+            fr: 'Français',
+            de: 'Deutsch'
+          }
+        };
+        return new Response(JSON.stringify(languages), {
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            'Cache-Control': 'public, max-age=3600',
+            ...corsHeaders
+          }
+        });
+      }
+
+      // Serve main app CSS for blog (auto-sync design system)
+      // Proxies the main app CSS so blog stays visually aligned
+      if (url.pathname === '/assets/blog-styles.css') {
+        // Current CSS file from main app (update hash after main app deployments)
+        const cssUrl = 'https://clearcvapp.com/assets/index-BEJyPPgn.css';
+
+        try {
+          const cssResponse = await fetch(cssUrl);
+
+          if (cssResponse.ok) {
+            return new Response(cssResponse.body, {
+              headers: {
+                'Content-Type': 'text/css; charset=utf-8',
+                'Cache-Control': 'public, max-age=3600', // 1 hour
+                'Access-Control-Allow-Origin': '*',
+                ...corsHeaders
+              }
+            });
+          }
+        } catch (error) {
+          // Fallback to no CSS
+        }
+
+        return new Response('/* Main app CSS not available */', {
+          status: 503,
+          headers: {
+            'Content-Type': 'text/css; charset=utf-8',
+            ...corsHeaders
+          }
+        });
+      }
+
+      // Blog Assets Proxy
+      // Forward /assets/*.js and /assets/*.css to Pages (for blog JavaScript/CSS files)
+      if (url.pathname.startsWith('/assets/') && (url.pathname.endsWith('.js') || url.pathname.endsWith('.css'))) {
+        const assetUrl = `https://1607c267.clearcv-blog.pages.dev${url.pathname}`;
+        const assetResponse = await fetch(assetUrl);
+
+        return new Response(assetResponse.body, {
+          status: assetResponse.status,
+          headers: {
+            'Content-Type': assetResponse.headers.get('Content-Type') || (url.pathname.endsWith('.js') ? 'application/javascript' : 'text/css'),
+            'Cache-Control': 'public, max-age=3600',
+            'Access-Control-Allow-Origin': '*',
+            ...corsHeaders
+          }
+        });
+      }
+
+      // Blog Reverse Proxy
+      // Forwards /blog/* and /[lang]/blog/* to Cloudflare Pages deployment
+      const blogPathPattern = /^\/(it|en|es|fr|de)?\/?(blog\/.*)$/;
       const blogMatch = url.pathname.match(blogPathPattern);
 
       if (blogMatch) {
         const lang = blogMatch[1] || 'it'; // Default Italian
         const blogPath = blogMatch[2]; // blog/article-slug
 
-        // WordPress subdomain URL
-        const wpUrl = `https://blog.clearcvapp.com/${lang}/${blogPath}`;
+        // Cloudflare Pages deployment URL (updated: 2026-01-05 - CSS absolute URLs fix)
+        const wpUrl = `https://1607c267.clearcv-blog.pages.dev/${lang}/${blogPath}`;
 
         // Forward request to WordPress
         const wpResponse = await fetch(wpUrl, {

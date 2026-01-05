@@ -1,19 +1,2 @@
 name = "clearcv-blog"
 pages_build_output_dir = "."
-
-[pages]
-# Disable automatic URL transformations
-compatibility_flags = ["nodejs_compat"]
-
-[[pages.rules]]
-path = "/*"
-cache_by_status_code = 200
-
-[build]
-command = ""
-cwd = ""
-watch_dirs = []
-
-[observability]
-enabled = true
-head_sampling_rate = 1
