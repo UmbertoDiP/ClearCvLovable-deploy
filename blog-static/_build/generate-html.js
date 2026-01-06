@@ -23,6 +23,13 @@ const TEMPLATES_DIR = path.join(__dirname, '..', '_templates');
 const CONTENT_DIR = path.join(__dirname, '..', '_content');
 const OUTPUT_DIR = path.join(__dirname, '..');
 
+// All 23 supported languages from ClearCV app (synced with src/lib/i18n/translations.ts)
+const ALL_SUPPORTED_LANGUAGES = [
+  'it', 'en', 'de', 'fr', 'es', 'pt', 'nl', 'pl', 'ro', 'el',
+  'cs', 'hu', 'sv', 'da', 'fi', 'no', 'sk', 'hr', 'sl', 'bg',
+  'lt', 'lv', 'et'
+];
+
 // Fetch supported languages from app
 async function fetchSupportedLanguages() {
   return new Promise((resolve, reject) => {
@@ -32,16 +39,16 @@ async function fetchSupportedLanguages() {
       res.on('end', () => {
         try {
           const json = JSON.parse(data);
-          resolve(json.languages || ['it', 'en', 'es', 'fr', 'de']);
+          resolve(json.languages || ALL_SUPPORTED_LANGUAGES);
         } catch (e) {
-          // Fallback se API non esiste
-          console.log('API not available, using fallback languages');
-          resolve(['it', 'en', 'es', 'fr', 'de']);
+          // Fallback to all 23 languages
+          console.log('API not available, using all 23 supported languages');
+          resolve(ALL_SUPPORTED_LANGUAGES);
         }
       });
     }).on('error', (e) => {
-      console.log('API fetch failed, using fallback languages');
-      resolve(['it', 'en', 'es', 'fr', 'de']);
+      console.log('API fetch failed, using all 23 supported languages');
+      resolve(ALL_SUPPORTED_LANGUAGES);
     });
   });
 }
