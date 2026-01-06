@@ -464,30 +464,6 @@ export default {
         });
       }
 
-      // Debug endpoint for sitemap generation
-      if (url.pathname === '/__debug/sitemap-test') {
-        try {
-          const sitemap = await generateSitemapXml(env);
-          return new Response(JSON.stringify({
-            success: true,
-            sitemapLength: sitemap.length,
-            urlCount: (sitemap.match(/<url>/g) || []).length,
-            hasBlogSection: sitemap.includes('Blog Pages'),
-            sample: sitemap.substring(0, 1000) + '\n...\n' + sitemap.substring(sitemap.length - 500)
-          }, null, 2), {
-            headers: { 'Content-Type': 'application/json', ...corsHeaders }
-          });
-        } catch (error) {
-          return new Response(JSON.stringify({
-            error: error.message,
-            stack: error.stack
-          }, null, 2), {
-            headers: { 'Content-Type': 'application/json', ...corsHeaders },
-            status: 500
-          });
-        }
-      }
-
       // Serve sitemap.xml (dynamic, auto-updates with blog changes)
       if (url.pathname === '/sitemap.xml') {
         const sitemap = await generateSitemapXml(env);
