@@ -1,0 +1,35 @@
+# Wrangler (Cloudflare)
+.wrangler/
+wrangler.toml.bak
+
+# Node modules (se usi npm nel blog)
+node_modules/
+
+# Build artifacts temporanei
+*.log
+*.bak
+
+# Output generato (committato ma ignorabile per dev locale)
+# Rimuovi il commento se vuoi ignorarli:
+# it/blog/**/*.html
+# en/blog/**/*.html
+# de/blog/**/*.html
+# etc...
+
+# File temporanei Python
+*.pyc
+__pycache__/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Old/deprecated files
+*.old
+content/*.md.bak
