@@ -464,25 +464,26 @@ export default {
         });
       }
 
-      // Debug endpoint for sitemap blog fetch
-      if (url.pathname === '/__debug/sitemap-blog') {
+      // Debug endpoint for sitemap generation
+      if (url.pathname === '/__debug/sitemap-test') {
         try {
-          const blogSitemapUrl = 'https://1607c267.clearcv-blog.pages.dev/sitemap.xml';
-          const blogResponse = await fetch(blogSitemapUrl);
-          const text = await blogResponse.text();
+          const sitemap = await generateSitemapXml(env);
           return new Response(JSON.stringify({
-            ok: blogResponse.ok,
-            status: blogResponse.status,
-            headers: Object.fromEntries(blogResponse.headers),
-            textLength: text.length,
-            urlCount: (text.match(/<loc>/g) || []).length,
-            sample: text.substring(0, 500)
+            success: true,
+            sitemapLength: sitemap.length,
+            urlCount: (sitemap.match(/<url>/g) || []).length,
+            hasBlogSection: sitemap.includes('Blog Pages'),
+            sample: sitemap.substring(0, 1000) + '\n...\n' + sitemap.substring(sitemap.length - 500)
           }, null, 2), {
             headers: { 'Content-Type': 'application/json', ...corsHeaders }
           });
         } catch (error) {
-          return new Response(JSON.stringify({ error: error.message, stack: error.stack }, null, 2), {
-            headers: { 'Content-Type': 'application/json', ...corsHeaders }
+          return new Response(JSON.stringify({
+            error: error.message,
+            stack: error.stack
+          }, null, 2), {
+            headers: { 'Content-Type': 'application/json', ...corsHeaders },
+            status: 500
           });
         }
       }
