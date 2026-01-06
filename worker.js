@@ -279,6 +279,27 @@ function replaceFavicon(html) {
 }
 
 /**
+ * Fix canonical tag for blog pages
+ * Replaces incorrect canonical (pointing to homepage) with correct one (current page URL)
+ */
+function fixBlogCanonical(html, currentUrl) {
+  // Extract current canonical
+  const canonicalMatch = html.match(/<link\s+rel="canonical"\s+href="([^"]+)"\s*\/?>/i);
+
+  if (canonicalMatch) {
+    const incorrectCanonical = canonicalMatch[0];
+    const correctCanonical = `<link rel="canonical" href="${currentUrl}" />`;
+
+    // Replace only if different
+    if (!canonicalMatch[1].includes('/blog')) {
+      return html.replace(incorrectCanonical, correctCanonical);
+    }
+  }
+
+  return html;
+}
+
+/**
  * Generate robots.txt
  */
 function generateRobotsTxt() {
@@ -454,12 +475,13 @@ export default {
 
       // Blog Reverse Proxy
       // Forwards /blog/* and /[lang]/blog/* to Cloudflare Pages deployment
-      const blogPathPattern = /^\/(it|en|es|fr|de)?\/?(blog\/.*)$/;
+      const blogPathPattern = /^\/(it|en|es|fr|de)?\/?blog(\/.*)?$/;
       const blogMatch = url.pathname.match(blogPathPattern);
 
       if (blogMatch) {
         const lang = blogMatch[1] || 'it'; // Default Italian
-        const blogPath = blogMatch[2]; // blog/article-slug
+        const blogSubPath = blogMatch[2] || ''; // /article-slug or empty for index
+        const blogPath = `blog${blogSubPath}`; // blog or blog/article-slug
 
         // Cloudflare Pages deployment URL (updated: 2026-01-05 - CSS absolute URLs fix)
         const wpUrl = `https://1607c267.clearcv-blog.pages.dev/${lang}/${blogPath}`;
@@ -471,7 +493,26 @@ export default {
           body: request.method !== 'GET' && request.method !== 'HEAD' ? request.body : undefined
         });
 
-        // Return WordPress response with CORS headers
+        // Fix canonical tags for blog pages (SEO)
+        const contentType = wpResponse.headers.get('Content-Type') || '';
+        if (contentType.includes('text/html')) {
+          let htmlContent = await wpResponse.text();
+
+          // Fix canonical to point to current page URL
+          const currentUrl = `https://clearcvapp.com/${lang}/${blogPath}`;
+          htmlContent = fixBlogCanonical(htmlContent, currentUrl);
+
+          return new Response(htmlContent, {
+            status: wpResponse.status,
+            statusText: wpResponse.statusText,
+            headers: {
+              ...Object.fromEntries(wpResponse.headers),
+              ...corsHeaders
+            }
+          });
+        }
+
+        // Return non-HTML response as-is with CORS headers
         return new Response(wpResponse.body, {
           status: wpResponse.status,
           statusText: wpResponse.statusText,
