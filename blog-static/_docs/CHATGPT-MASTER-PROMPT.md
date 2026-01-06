@@ -129,7 +129,7 @@ Dopo aver generato l'articolo in italiano, attendi la mia conferma e poi procedi
 3. **Traduci tutto il contenuto markdown** - Titoli, paragrafi, liste, esempi
 4. **Adatta culturalmente** quando necessario (es. esempi specifici per paese)
 5. **Mantieni link ClearCV** come https://clearcvapp.com (non tradurre URL)
-6. **Slug articolo** - Usa versione tradotta del titolo in minuscolo con trattini
+6. **Nome file FISSO** - Tutti gli articoli si chiamano `article-1.md`, `article-2.md`, etc. (STESSO nome per tutte le lingue)
 
 **Esempio Frontmatter Tradotto (Inglese):**
 ```yaml
@@ -158,9 +158,12 @@ Dopo l'articolo italiano, ti dirò:
 **Formato Output Traduzioni:**
 
 Per ogni traduzione, fornisci il file markdown completo con:
-- Nome file suggerito (es. `how-to-write-perfect-resume.md`)
+
+- **Nome file FISSO**: `article-1.md` (uguale per tutte le lingue)
 - Frontmatter tradotto
 - Contenuto completo tradotto
+
+**IMPORTANTE**: Il nome file NON cambia tra lingue. Solo il contenuto è tradotto.
 
 ---
 
@@ -184,12 +187,50 @@ Per ogni traduzione, fornisci il file markdown completo con:
 
 ## Salvataggio File
 
-**Path file articoli:** `C:\Users\umber\Documents\MyProjects\ClearCvLovable\blog-static\_content\[LANG]\[slug-articolo].md`
+**Path file articoli:** `C:\Users\umber\Documents\MyProjects\ClearCvLovable\blog-static\_content\[LANG]\article-N.md`
 
-Esempio:
-- Italiano: `blog-static\_content\it\come-scrivere-cv-perfetto.md`
-- Inglese: `blog-static\_content\en\how-to-write-perfect-resume.md`
-- Tedesco: `blog-static\_content\de\wie-man-perfekten-lebenslauf-schreibt.md`
+**Convenzione Nome File:**
+
+- Primo articolo: `article-1.md`
+- Secondo articolo: `article-2.md`
+- Terzo articolo: `article-3.md`
+- etc.
+
+**Struttura Cartelle (23 lingue):**
+
+```text
+blog-static/_content/
+├── it/article-1.md    (Italiano)
+├── en/article-1.md    (English)
+├── de/article-1.md    (Deutsch)
+├── fr/article-1.md    (Français)
+├── es/article-1.md    (Español)
+├── pt/article-1.md    (Português)
+├── nl/article-1.md    (Nederlands)
+├── pl/article-1.md    (Polski)
+├── ro/article-1.md    (Română)
+├── el/article-1.md    (Ελληνικά)
+├── cs/article-1.md    (Čeština)
+├── hu/article-1.md    (Magyar)
+├── sv/article-1.md    (Svenska)
+├── da/article-1.md    (Dansk)
+├── fi/article-1.md    (Suomi)
+├── no/article-1.md    (Norsk)
+├── sk/article-1.md    (Slovenčina)
+├── hr/article-1.md    (Hrvatski)
+├── sl/article-1.md    (Slovenščina)
+├── bg/article-1.md    (Български)
+├── lt/article-1.md    (Lietuvių)
+├── lv/article-1.md    (Latviešu)
+└── et/article-1.md    (Eesti)
+```
+
+**Vantaggi naming fisso:**
+
+- ✅ Nessuna traduzione nome file necessaria
+- ✅ URL consistenti: `/[lang]/blog/article-1`
+- ✅ Facile trovare traduzioni (stesso path, diversa lingua)
+- ✅ Semplice aggiungere nuovi articoli (incrementa numero)
 
 ---
 
