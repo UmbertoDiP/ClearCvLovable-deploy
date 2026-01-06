@@ -72,10 +72,70 @@
     <link rel="alternate" hreflang="de" href="https://clearcvapp.com/de/blog/wie-schreibe-perfekter-lebenslauf">
 
     <!-- ClearCV Design System - Main app CSS (design tokens & components) -->
-    <link rel="stylesheet" href="/assets/blog-styles.css">
+    <link rel="stylesheet" href="/assets/blog-styles.css" id="blog-styles-link">
 
     <!-- Blog-specific styles (minimal overrides for blog layout) -->
-    <link rel="stylesheet" href="/assets/blog-overrides.css">
+    <link rel="stylesheet" href="/assets/blog-overrides.css" id="blog-overrides-link">
+
+    <!-- CSS Loading Debug Script -->
+    <script>
+        console.log('🔍 [CSS DEBUG] Starting CSS load monitoring for article page...');
+        console.log('🔍 [CSS DEBUG] Base href:', document.querySelector('base')?.href || 'none');
+        console.log('🔍 [CSS DEBUG] Current URL:', window.location.href);
+
+        // Monitor blog-styles.css
+        const blogStylesLink = document.getElementById('blog-styles-link');
+        if (blogStylesLink) {
+            console.log('🔍 [CSS DEBUG] blog-styles.css link found:', blogStylesLink.href);
+            blogStylesLink.addEventListener('load', function() {
+                console.log('✅ [CSS DEBUG] blog-styles.css loaded successfully');
+                console.log('✅ [CSS DEBUG] Stylesheet rules:', document.styleSheets.length);
+            });
+            blogStylesLink.addEventListener('error', function(e) {
+                console.error('❌ [CSS DEBUG] blog-styles.css FAILED to load');
+                console.error('❌ [CSS DEBUG] Error details:', e);
+            });
+        } else {
+            console.error('❌ [CSS DEBUG] blog-styles.css link element NOT FOUND in DOM');
+        }
+
+        // Monitor blog-overrides.css
+        const blogOverridesLink = document.getElementById('blog-overrides-link');
+        if (blogOverridesLink) {
+            console.log('🔍 [CSS DEBUG] blog-overrides.css link found:', blogOverridesLink.href);
+            blogOverridesLink.addEventListener('load', function() {
+                console.log('✅ [CSS DEBUG] blog-overrides.css loaded successfully');
+            });
+            blogOverridesLink.addEventListener('error', function(e) {
+                console.error('❌ [CSS DEBUG] blog-overrides.css FAILED to load');
+                console.error('❌ [CSS DEBUG] Error details:', e);
+            });
+        } else {
+            console.error('❌ [CSS DEBUG] blog-overrides.css link element NOT FOUND in DOM');
+        }
+
+        // Check all stylesheets after page load
+        window.addEventListener('load', function() {
+            console.log('📊 [CSS DEBUG] Page fully loaded. Stylesheet audit:');
+            console.log('📊 [CSS DEBUG] Total stylesheets:', document.styleSheets.length);
+
+            Array.from(document.styleSheets).forEach((sheet, index) => {
+                try {
+                    console.log(`📊 [CSS DEBUG] Stylesheet ${index + 1}:`, sheet.href || 'inline');
+                    console.log(`📊 [CSS DEBUG]   - Rules:`, sheet.cssRules ? sheet.cssRules.length : 'inaccessible');
+                } catch (e) {
+                    console.warn(`⚠️  [CSS DEBUG] Cannot access stylesheet ${index + 1}:`, e.message);
+                }
+            });
+
+            // Check computed styles on body
+            const bodyStyles = window.getComputedStyle(document.body);
+            console.log('📊 [CSS DEBUG] Body computed styles sample:');
+            console.log('📊 [CSS DEBUG]   - Background:', bodyStyles.backgroundColor);
+            console.log('📊 [CSS DEBUG]   - Font family:', bodyStyles.fontFamily);
+            console.log('📊 [CSS DEBUG]   - Color:', bodyStyles.color);
+        });
+    </script>
 
     <!-- Theme and Language Management Scripts -->
     <script src="/assets/theme-manager.js"></script>
