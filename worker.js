@@ -334,7 +334,12 @@ Crawl-delay: 1
 async function generateSitemapXml(env) {
   const now = new Date().toISOString().split('T')[0];
 
-  const languages = ['it', 'en', 'de', 'fr', 'es', 'pt', 'nl', 'pl'];
+  // All 23 supported languages from ClearCV app (synced with src/lib/i18n/translations.ts)
+  const languages = [
+    'it', 'en', 'de', 'fr', 'es', 'pt', 'nl', 'pl', 'ro', 'el',
+    'cs', 'hu', 'sv', 'da', 'fi', 'no', 'sk', 'hr', 'sl', 'bg',
+    'lt', 'lv', 'et'
+  ];
   const mainPages = [
     { path: '', priority: '1.0', changefreq: 'weekly' },
     { path: 'editor', priority: '0.9', changefreq: 'weekly' },
@@ -377,58 +382,72 @@ async function generateSitemapXml(env) {
     });
   });
 
-  // Add blog pages dynamically for all languages
+  // Add blog pages from blog-static folder in ASSETS
   sitemap += `
 
   <!-- Blog Pages - All Languages -->`;
 
-  try {
-    // Fetch blog sitemap from Cloudflare Pages deployment
-    const blogSitemapUrl = 'https://1607c267.clearcv-blog.pages.dev/sitemap.xml';
-    const blogResponse = await fetch(blogSitemapUrl);
+  // Blog languages available in blog-static
+  const blogLanguages = ['it', 'en', 'es', 'fr', 'de'];
 
-    if (blogResponse.ok) {
-      const blogSitemapText = await blogResponse.text();
+  // Blog articles (slug per language)
+  const blogArticles = {
+    'it': [
+      'come-scrivere-cv-perfetto',
+      'cv-europass-2026',
+      'cv-neolaureati',
+      'errori-cv-da-evitare'
+    ],
+    'en': [
+      'how-to-write-perfect-resume',
+      'europass-cv-2026',
+      'graduate-resume-tips',
+      'resume-mistakes-to-avoid'
+    ],
+    'es': [
+      'como-escribir-cv-perfecto',
+      'cv-europass-2026',
+      'cv-recien-graduados',
+      'errores-cv-evitar'
+    ],
+    'fr': [
+      'comment-ecrire-cv-parfait',
+      'cv-europass-2026',
+      'cv-jeunes-diplomes',
+      'erreurs-cv-eviter'
+    ],
+    'de': [
+      'wie-schreibe-perfekter-lebenslauf',
+      'europass-lebenslauf-2026',
+      'lebenslauf-absolventen',
+      'lebenslauf-fehler-vermeiden'
+    ]
+  };
 
-      // Extract blog URLs from Pages sitemap using exec loop (matchAll not available in Workers)
-      const locRegex = /<loc>([^<]+)<\/loc>/g;
-      let match;
-
-      while ((match = locRegex.exec(blogSitemapText)) !== null) {
-        const blogUrl = match[1];
-        // Blog sitemap already uses clearcvapp.com domain, use as-is
-        sitemap += `
-  <url>
-    <loc>${blogUrl}</loc>
-    <lastmod>${now}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>`;
-      }
-    } else {
-      // Fallback if fetch returns non-200
-      languages.forEach(lang => {
-        sitemap += `
+  // Add blog index pages for each language
+  blogLanguages.forEach(lang => {
+    sitemap += `
   <url>
     <loc>https://clearcvapp.com/${lang}/blog</loc>
     <lastmod>${now}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>`;
-      });
-    }
-  } catch (error) {
-    // Fallback: add blog index pages if fetch fails
-    languages.forEach(lang => {
+  });
+
+  // Add blog articles for each language
+  blogLanguages.forEach(lang => {
+    const articles = blogArticles[lang] || [];
+    articles.forEach(slug => {
       sitemap += `
   <url>
-    <loc>https://clearcvapp.com/${lang}/blog</loc>
+    <loc>https://clearcvapp.com/${lang}/blog/${slug}</loc>
     <lastmod>${now}</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>`;
     });
-  }
+  });
 
   sitemap += `
 </urlset>`;
@@ -470,7 +489,7 @@ export default {
         return new Response(sitemap, {
           headers: {
             'Content-Type': 'application/xml; charset=utf-8',
-            'Cache-Control': 'public, max-age=3600',
+            'Cache-Control': 'public, max-age=0, must-revalidate',
             ...corsHeaders
           }
         });
@@ -509,57 +528,48 @@ export default {
         });
       }
 
-      // Serve main app CSS for blog (auto-sync design system)
-      // Proxies the main app CSS so blog stays visually aligned
-      if (url.pathname === '/assets/blog-styles.css') {
-        // Current CSS file from main app (update hash after main app deployments)
-        const cssUrl = 'https://clearcvapp.com/assets/index-BEJyPPgn.css';
-
+      // Blog Assets from blog-static
+      // Serve /assets/blog-*.js, theme-manager.js, language-manager.js from blog-static folder
+      if (url.pathname.startsWith('/assets/') &&
+          (url.pathname.includes('blog-') ||
+           url.pathname.includes('theme-manager') ||
+           url.pathname.includes('language-manager')) &&
+          (url.pathname.endsWith('.js') || url.pathname.endsWith('.css'))) {
         try {
-          const cssResponse = await fetch(cssUrl);
+          // Construct the path in blog-static folder
+          const assetPath = `/blog-static${url.pathname}`;
 
-          if (cssResponse.ok) {
-            return new Response(cssResponse.body, {
+          // Create a new Request with the blog-static path
+          const assetUrl = new URL(assetPath, request.url);
+          const assetRequest = new Request(assetUrl, {
+            method: request.method,
+            headers: request.headers
+          });
+
+          const blogAsset = await env.ASSETS.fetch(assetRequest);
+
+          if (blogAsset.ok) {
+            console.log(`✅ [WORKER] Served blog asset: ${assetPath}`);
+            return new Response(blogAsset.body, {
+              status: 200,
               headers: {
-                'Content-Type': 'text/css; charset=utf-8',
-                'Cache-Control': 'public, max-age=3600', // 1 hour
+                'Content-Type': url.pathname.endsWith('.js') ? 'application/javascript; charset=utf-8' : 'text/css; charset=utf-8',
+                'Cache-Control': 'public, max-age=3600',
                 'Access-Control-Allow-Origin': '*',
                 ...corsHeaders
               }
             });
+          } else {
+            console.warn(`⚠️  [WORKER] Blog asset not found: ${assetPath} (status: ${blogAsset.status})`);
           }
         } catch (error) {
-          // Fallback to no CSS
+          console.error(`❌ [WORKER] Error fetching blog asset ${url.pathname}:`, error);
+          // Asset not found in blog-static, continue to regular assets
         }
-
-        return new Response('/* Main app CSS not available */', {
-          status: 503,
-          headers: {
-            'Content-Type': 'text/css; charset=utf-8',
-            ...corsHeaders
-          }
-        });
       }
 
-      // Blog Assets Proxy
-      // Forward /assets/*.js and /assets/*.css to Pages (for blog JavaScript/CSS files)
-      if (url.pathname.startsWith('/assets/') && (url.pathname.endsWith('.js') || url.pathname.endsWith('.css'))) {
-        const assetUrl = `https://1607c267.clearcv-blog.pages.dev${url.pathname}`;
-        const assetResponse = await fetch(assetUrl);
-
-        return new Response(assetResponse.body, {
-          status: assetResponse.status,
-          headers: {
-            'Content-Type': assetResponse.headers.get('Content-Type') || (url.pathname.endsWith('.js') ? 'application/javascript' : 'text/css'),
-            'Cache-Control': 'public, max-age=3600',
-            'Access-Control-Allow-Origin': '*',
-            ...corsHeaders
-          }
-        });
-      }
-
-      // Blog Reverse Proxy
-      // Forwards /blog/* and /[lang]/blog/* to Cloudflare Pages deployment
+      // Blog Static Files from ASSETS
+      // Serves /blog/* and /[lang]/blog/* from blog-static folder in ASSETS
       const blogPathPattern = /^\/(it|en|es|fr|de)?\/?blog(\/.*)?$/;
       const blogMatch = url.pathname.match(blogPathPattern);
 
@@ -568,41 +578,48 @@ export default {
         const blogSubPath = blogMatch[2] || ''; // /article-slug or empty for index
         const blogPath = `blog${blogSubPath}`; // blog or blog/article-slug
 
-        // Cloudflare Pages deployment URL (updated: 2026-01-05 - CSS absolute URLs fix)
-        const wpUrl = `https://1607c267.clearcv-blog.pages.dev/${lang}/${blogPath}`;
+        // Construct path to blog-static files in ASSETS
+        const assetPath = `/blog-static/${lang}/${blogPath}${blogPath.endsWith('/') || blogPath === 'blog' ? 'index.html' : '/index.html'}`;
 
-        // Forward request to WordPress
-        const wpResponse = await fetch(wpUrl, {
-          method: request.method,
-          headers: request.headers,
-          body: request.method !== 'GET' && request.method !== 'HEAD' ? request.body : undefined
-        });
+        try {
+          // Fetch from ASSETS binding (blog-static folder)
+          const blogAsset = await env.ASSETS.fetch(new URL(assetPath, request.url));
 
-        // Fix canonical tags for blog pages (SEO)
-        const contentType = wpResponse.headers.get('Content-Type') || '';
-        if (contentType.includes('text/html')) {
-          let htmlContent = await wpResponse.text();
+          if (blogAsset.ok) {
+            const contentType = blogAsset.headers.get('Content-Type') || '';
+            if (contentType.includes('text/html')) {
+              let htmlContent = await blogAsset.text();
 
-          // Fix canonical to point to current page URL
-          const currentUrl = `https://clearcvapp.com/${lang}/${blogPath}`;
-          htmlContent = fixBlogCanonical(htmlContent, currentUrl);
+              // Fix canonical to point to current page URL
+              const currentUrl = `https://clearcvapp.com/${lang}/${blogPath}`;
+              htmlContent = fixBlogCanonical(htmlContent, currentUrl);
 
-          return new Response(htmlContent, {
-            status: wpResponse.status,
-            statusText: wpResponse.statusText,
-            headers: {
-              ...Object.fromEntries(wpResponse.headers),
-              ...corsHeaders
+              return new Response(htmlContent, {
+                status: 200,
+                headers: {
+                  'Content-Type': 'text/html; charset=utf-8',
+                  'Cache-Control': 'public, max-age=0, must-revalidate',
+                  ...corsHeaders
+                }
+              });
             }
-          });
+
+            return new Response(blogAsset.body, {
+              status: blogAsset.status,
+              headers: {
+                ...Object.fromEntries(blogAsset.headers),
+                ...corsHeaders
+              }
+            });
+          }
+        } catch (error) {
+          // Blog file not found in ASSETS, return 404
         }
 
-        // Return non-HTML response as-is with CORS headers
-        return new Response(wpResponse.body, {
-          status: wpResponse.status,
-          statusText: wpResponse.statusText,
+        return new Response('Blog article not found', {
+          status: 404,
           headers: {
-            ...Object.fromEntries(wpResponse.headers),
+            'Content-Type': 'text/plain',
             ...corsHeaders
           }
         });
