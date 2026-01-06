@@ -4,7 +4,16 @@ Questa guida spiega come generare nuovi articoli per il blog ClearCV usando Chat
 
 ## Location
 
-Script: `blog-static/_docs/generate-blog-articles.js`
+**Path Assoluto**:
+```
+C:\Users\umber\Documents\MyProjects\ClearCvLovable\blog-static\_article-generation\
+```
+
+**Script Principale**: `generate-blog-articles.js`
+
+**Altri Script**:
+- `fill-articles-chatgpt.js` → Riempie articoli esistenti
+- `generate-blog.py` → Script Python legacy
 
 ## Come Funziona
 
@@ -13,7 +22,7 @@ Lo script genera **prompt per ChatGPT** che creano articoli SEO-optimized basati
 ### Step 1: Genera Prompts
 
 ```bash
-cd blog-static/_docs
+cd blog-static/_article-generation
 node generate-blog-articles.js --count=10 --lang=it --output=both
 ```
 
@@ -64,7 +73,7 @@ nano ../_content/it/[slug-articolo].json
 ### Step 4: Rigenera HTML
 
 ```bash
-cd ../build
+cd ../_build
 node generate-html.js --rebuild-all
 ```
 
@@ -150,7 +159,7 @@ node generate-blog-articles.js --lang=en --count=20
 
 ```bash
 # 1. Genera 5 articoli italiani
-cd blog-static/_docs
+cd blog-static/_article-generation
 node generate-blog-articles.js --count=5 --lang=it
 
 # 2. Apri file prompts
