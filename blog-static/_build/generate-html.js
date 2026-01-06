@@ -62,7 +62,50 @@ function loadTemplate(templateName) {
   return fs.readFileSync(templatePath, 'utf8');
 }
 
-// Load content (markdown or JSON metadata)
+// Parse YAML frontmatter from markdown
+function parseFrontmatter(content) {
+  const frontmatterRegex = /^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/;
+  const match = content.match(frontmatterRegex);
+
+  if (!match) {
+    // No frontmatter, return content as-is with empty metadata
+    return { content, metadata: {} };
+  }
+
+  const yamlContent = match[1];
+  const markdownContent = match[2];
+
+  // Simple YAML parser (works for basic key-value pairs)
+  const metadata = {};
+  yamlContent.split('\n').forEach(line => {
+    const colonIndex = line.indexOf(':');
+    if (colonIndex > -1) {
+      const key = line.substring(0, colonIndex).trim();
+      let value = line.substring(colonIndex + 1).trim();
+
+      // Remove quotes
+      if ((value.startsWith('"') && value.endsWith('"')) ||
+          (value.startsWith("'") && value.endsWith("'"))) {
+        value = value.slice(1, -1);
+      }
+
+      // Parse arrays [item1, item2]
+      if (value.startsWith('[') && value.endsWith(']')) {
+        value = value.slice(1, -1).split(',').map(v => v.trim().replace(/['"]/g, ''));
+      }
+
+      // Parse booleans
+      if (value === 'true') value = true;
+      if (value === 'false') value = false;
+
+      metadata[key] = value;
+    }
+  });
+
+  return { content: markdownContent, metadata };
+}
+
+// Load content (markdown with frontmatter or separate JSON)
 function loadContent(lang, articleSlug) {
   const contentPath = path.join(CONTENT_DIR, lang, `${articleSlug}.md`);
   const metaPath = path.join(CONTENT_DIR, lang, `${articleSlug}.json`);
@@ -71,11 +114,16 @@ function loadContent(lang, articleSlug) {
     throw new Error(`Content not found: ${lang}/${articleSlug}.md`);
   }
 
-  const content = fs.readFileSync(contentPath, 'utf8');
-  let metadata = {};
+  const rawContent = fs.readFileSync(contentPath, 'utf8');
 
+  // Try to parse frontmatter first
+  const { content, metadata: frontmatterMeta } = parseFrontmatter(rawContent);
+
+  // If separate JSON exists, merge it (JSON takes precedence for backwards compatibility)
+  let metadata = frontmatterMeta;
   if (fs.existsSync(metaPath)) {
-    metadata = JSON.parse(fs.readFileSync(metaPath, 'utf8'));
+    const jsonMeta = JSON.parse(fs.readFileSync(metaPath, 'utf8'));
+    metadata = { ...frontmatterMeta, ...jsonMeta };
   }
 
   return { content, metadata };

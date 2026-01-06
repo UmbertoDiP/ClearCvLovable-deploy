@@ -2,7 +2,24 @@
 
 Questa guida spiega come generare nuovi articoli per il blog ClearCV usando ChatGPT.
 
-## Location
+## 🚀 Metodo Consigliato: Prompt Master Unificato
+
+**Usa questo metodo per generare e tradurre articoli in un'unica conversazione ChatGPT.**
+
+📄 **File Prompt**: `CHATGPT-MASTER-PROMPT.md` (stessa cartella)
+
+Questo prompt ti permette di:
+
+- ✅ Generare articolo completo in italiano con YAML frontmatter
+- ✅ Tradurre sequenzialmente in tutte le 23 lingue
+- ✅ Mantenere struttura frontmatter consistente
+- ✅ Adattamento culturale automatico per ogni lingua
+
+**Vedi**: [CHATGPT-MASTER-PROMPT.md](./CHATGPT-MASTER-PROMPT.md)
+
+---
+
+## 📂 Location Script Legacy
 
 **Path Assoluto**:
 ```
@@ -14,6 +31,8 @@ C:\Users\umber\Documents\MyProjects\ClearCvLovable\blog-static\_article-generati
 **Altri Script**:
 - `fill-articles-chatgpt.js` → Riempie articoli esistenti
 - `generate-blog.py` → Script Python legacy
+
+⚠️ **Nota**: Gli script legacy generano prompt separati. Il nuovo sistema con frontmatter unificato è più efficiente.
 
 ## Come Funziona
 
