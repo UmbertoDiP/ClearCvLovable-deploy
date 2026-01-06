@@ -329,27 +329,101 @@ Crawl-delay: 1
 }
 
 /**
- * Generate sitemap.xml
+ * Generate comprehensive sitemap.xml dynamically for all pages and languages
  */
-function generateSitemapXml() {
+async function generateSitemapXml(env) {
   const now = new Date().toISOString().split('T')[0];
 
-  return `<?xml version="1.0" encoding="UTF-8"?>
+  const languages = ['it', 'en', 'de', 'fr', 'es', 'pt', 'nl', 'pl'];
+  const mainPages = [
+    { path: '', priority: '1.0', changefreq: 'weekly' },
+    { path: 'editor', priority: '0.9', changefreq: 'weekly' },
+    { path: 'auth', priority: '0.7', changefreq: 'monthly' },
+    { path: 'terms', priority: '0.5', changefreq: 'yearly' },
+    { path: 'privacy', priority: '0.5', changefreq: 'yearly' }
+  ];
+
+  let sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- Main Pages - All Languages -->`;
+
+  // Add main app pages for each language
+  languages.forEach(lang => {
+    mainPages.forEach(({ path, priority, changefreq }) => {
+      const fullPath = path ? `/${lang}/${path}` : `/${lang}`;
+
+      sitemap += `
   <url>
-    <loc>https://clearcvapp.com/</loc>
+    <loc>https://clearcvapp.com${fullPath}</loc>
     <lastmod>${now}</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="it" href="https://clearcvapp.com/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://clearcvapp.com/" />
-    <xhtml:link rel="alternate" hreflang="de" href="https://clearcvapp.com/" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://clearcvapp.com/" />
-    <xhtml:link rel="alternate" hreflang="es" href="https://clearcvapp.com/" />
-  </url>
-  <!-- Add more pages when available -->
+    <changefreq>${changefreq}</changefreq>
+    <priority>${priority}</priority>`;
+
+      // Add hreflang for homepage and editor
+      if (path === '' || path === 'editor') {
+        languages.forEach(altLang => {
+          const altPath = path ? `/${altLang}/${path}` : `/${altLang}`;
+          sitemap += `
+    <xhtml:link rel="alternate" hreflang="${altLang}" href="https://clearcvapp.com${altPath}"/>`;
+        });
+        sitemap += `
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://clearcvapp.com/en${path ? '/' + path : ''}"/>`;
+      }
+
+      sitemap += `
+  </url>`;
+    });
+  });
+
+  // Add blog pages dynamically for all languages
+  sitemap += `
+
+  <!-- Blog Pages - All Languages -->`;
+
+  try {
+    // Fetch blog sitemap from Cloudflare Pages deployment
+    const blogSitemapUrl = 'https://1607c267.clearcv-blog.pages.dev/sitemap.xml';
+    const blogResponse = await fetch(blogSitemapUrl);
+
+    if (blogResponse.ok) {
+      const blogSitemapText = await blogResponse.text();
+
+      // Extract blog URLs from Pages sitemap
+      const urlMatches = blogSitemapText.matchAll(/<loc>([^<]+)<\/loc>/g);
+
+      for (const match of urlMatches) {
+        const blogUrl = match[1];
+        // Replace Pages domain with production domain
+        const prodUrl = blogUrl.replace('1607c267.clearcv-blog.pages.dev', 'clearcvapp.com');
+
+        sitemap += `
+  <url>
+    <loc>${prodUrl}</loc>
+    <lastmod>${now}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>`;
+      }
+    }
+  } catch (error) {
+    // Fallback: add blog index pages if fetch fails
+    languages.forEach(lang => {
+      sitemap += `
+  <url>
+    <loc>https://clearcvapp.com/${lang}/blog</loc>
+    <lastmod>${now}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>`;
+    });
+  }
+
+  sitemap += `
 </urlset>`;
+
+  return sitemap;
 }
 
 export default {
@@ -380,9 +454,10 @@ export default {
         });
       }
 
-      // Serve sitemap.xml
+      // Serve sitemap.xml (dynamic, auto-updates with blog changes)
       if (url.pathname === '/sitemap.xml') {
-        return new Response(generateSitemapXml(), {
+        const sitemap = await generateSitemapXml(env);
+        return new Response(sitemap, {
           headers: {
             'Content-Type': 'application/xml; charset=utf-8',
             'Cache-Control': 'public, max-age=3600',
