@@ -390,22 +390,32 @@ async function generateSitemapXml(env) {
     if (blogResponse.ok) {
       const blogSitemapText = await blogResponse.text();
 
-      // Extract blog URLs from Pages sitemap
-      const urlMatches = blogSitemapText.matchAll(/<loc>([^<]+)<\/loc>/g);
+      // Extract blog URLs from Pages sitemap using exec loop (matchAll not available in Workers)
+      const locRegex = /<loc>([^<]+)<\/loc>/g;
+      let match;
 
-      for (const match of urlMatches) {
+      while ((match = locRegex.exec(blogSitemapText)) !== null) {
         const blogUrl = match[1];
-        // Replace Pages domain with production domain
-        const prodUrl = blogUrl.replace('1607c267.clearcv-blog.pages.dev', 'clearcvapp.com');
-
+        // Blog sitemap already uses clearcvapp.com domain, use as-is
         sitemap += `
   <url>
-    <loc>${prodUrl}</loc>
+    <loc>${blogUrl}</loc>
     <lastmod>${now}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>`;
       }
+    } else {
+      // Fallback if fetch returns non-200
+      languages.forEach(lang => {
+        sitemap += `
+  <url>
+    <loc>https://clearcvapp.com/${lang}/blog</loc>
+    <lastmod>${now}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>`;
+      });
     }
   } catch (error) {
     // Fallback: add blog index pages if fetch fails
