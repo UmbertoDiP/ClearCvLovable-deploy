@@ -459,6 +459,13 @@ export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
 
+    // Redirect apex domain to www subdomain (canonical URL)
+    if (url.hostname === 'clearcvapp.com') {
+      const wwwUrl = new URL(request.url);
+      wwwUrl.hostname = 'www.clearcvapp.com';
+      return Response.redirect(wwwUrl.toString(), 301);
+    }
+
     // CORS headers for Supabase
     const corsHeaders = {
       'Access-Control-Allow-Origin': '*',
