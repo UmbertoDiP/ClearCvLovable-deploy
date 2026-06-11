@@ -300,89 +300,32 @@ function fixBlogCanonical(html, currentUrl) {
 }
 
 /**
- * Generate robots.txt with AI crawlers ALLOWED (GEO/AEO Optimization)
+ * Generate robots.txt
  */
 function generateRobotsTxt() {
-  return `# ClearCV - Professional CV Builder
-# https://clearcvapp.com
-# AI-SEO Optimized
-
-User-agent: *
+  return `User-agent: *
 Allow: /
+Sitemap: https://clearcvapp.com/sitemap.xml
 
-# AI Crawlers (GEO/AEO Optimization) - EXPLICITLY ALLOWED
-User-agent: GPTBot
-Allow: /
-Crawl-delay: 2
-
-User-agent: ClaudeBot
-Allow: /
-Crawl-delay: 2
-
-User-agent: Claude-Web
-Allow: /
-Crawl-delay: 2
-
-User-agent: Google-Extended
-Allow: /
-Crawl-delay: 2
-
-User-agent: PerplexityBot
-Allow: /
-Crawl-delay: 2
-
-User-agent: Applebot-Extended
-Allow: /
-
-User-agent: anthropic-ai
-Allow: /
-
-User-agent: Bytespider
-Allow: /
-
-User-agent: CCBot
-Allow: /
-
-# Search Engines
 User-agent: Googlebot
 Allow: /
-Crawl-delay: 1
+Crawl-delay: 0
 
 User-agent: Bingbot
 Allow: /
+Crawl-delay: 0
+
+User-agent: Yandex
+Allow: /
 Crawl-delay: 1
 
-User-agent: Slurp
-Allow: /
-
-User-agent: DuckDuckBot
-Allow: /
-
-User-agent: Baiduspider
-Allow: /
-
-User-agent: YandexBot
-Allow: /
-
-User-agent: facebookexternalhit
-Allow: /
-
-User-agent: Twitterbot
-Allow: /
-
-User-agent: LinkedInBot
-Allow: /
-
-User-agent: *
-Allow: /
-
-# Sitemap location
-Sitemap: https://clearcvapp.com/sitemap.xml
-
-# Disallow private pages
-Disallow: /api/
-Disallow: /*?*
-Disallow: /editor/*`;
+# Block AI crawlers (optional - uncomment if needed)
+# User-agent: GPTBot
+# Disallow: /
+# User-agent: ChatGPT-User
+# Disallow: /
+# User-agent: CCBot
+# Disallow: /`;
 }
 
 /**
@@ -516,13 +459,6 @@ export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
 
-    // Redirect apex domain to www subdomain (canonical URL)
-    if (url.hostname === 'clearcvapp.com') {
-      const wwwUrl = new URL(request.url);
-      wwwUrl.hostname = 'www.clearcvapp.com';
-      return Response.redirect(wwwUrl.toString(), 301);
-    }
-
     // CORS headers for Supabase
     const corsHeaders = {
       'Access-Control-Allow-Origin': '*',
@@ -536,22 +472,16 @@ export default {
     }
 
     try {
-      // Let Cloudflare serve static robots.txt from public/ directory
-      // (Worker dynamic generation was being overridden by Managed Content)
-      // Commented out Worker interception - fallthrough to ASSETS
-      /*
+      // Serve robots.txt
       if (url.pathname === '/robots.txt') {
         return new Response(generateRobotsTxt(), {
           headers: {
             'Content-Type': 'text/plain; charset=utf-8',
-            'Cache-Control': 'no-cache, no-store, must-revalidate, no-transform',
-            'CF-Cache-Status': 'BYPASS',
-            'X-Robots-Tag': 'all',
+            'Cache-Control': 'public, max-age=3600',
             ...corsHeaders
           }
         });
       }
-      */
 
       // Serve sitemap.xml (dynamic, auto-updates with blog changes)
       if (url.pathname === '/sitemap.xml') {

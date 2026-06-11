@@ -195,3 +195,10 @@ Per dettagli completi, leggi [`STRATEGY.md`](./STRATEGY.md)
 **Current Version**: Lovable v1.0.0 / Deploy v1.0.0
 **Last Updated**: 2025-01-01
 **Maintainer**: Umberto Di Puorto
+
+
+## Audit Tecnico
+- **Linguaggi:** HTML/CSS/JS o generico
+- **Framework/Librerie Principali:** Nessuno/Non rilevato
+
+*Generato automaticamente per la catalogazione dei progetti.*
