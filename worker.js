@@ -513,7 +513,7 @@ async function generateSitemapXml(env) {
 }
 
 export default {
-  async fetch(request, env, ctx) {
+  async handleRequest(request, env, ctx) {
     const url = new URL(request.url);
 
     // Redirect apex domain to www subdomain (canonical URL)
@@ -541,23 +541,6 @@ export default {
     }
 
     try {
-      // Let Cloudflare serve static robots.txt from public/ directory
-      // (Worker dynamic generation was being overridden by Managed Content)
-      // Commented out Worker interception - fallthrough to ASSETS
-      /*
-      if (url.pathname === '/robots.txt') {
-        return new Response(generateRobotsTxt(), {
-          headers: {
-            'Content-Type': 'text/plain; charset=utf-8',
-            'Cache-Control': 'no-cache, no-store, must-revalidate, no-transform',
-            'CF-Cache-Status': 'BYPASS',
-            'X-Robots-Tag': 'all',
-            ...corsHeaders
-          }
-        });
-      }
-      */
-
       // Serve sitemap.xml (dynamic, auto-updates with blog changes)
       if (url.pathname === '/sitemap.xml') {
         const sitemap = await generateSitemapXml(env);
@@ -604,27 +587,18 @@ export default {
       }
 
       // Blog Assets from blog-static
-      // Serve /assets/blog-*.js, theme-manager.js, language-manager.js from blog-static folder
       if (url.pathname.startsWith('/assets/') &&
           (url.pathname.includes('blog-') ||
            url.pathname.includes('theme-manager') ||
            url.pathname.includes('language-manager')) &&
           (url.pathname.endsWith('.js') || url.pathname.endsWith('.css'))) {
         try {
-          // Construct the path in blog-static folder
           const assetPath = `/blog-static${url.pathname}`;
-
-          // Create a new Request with the blog-static path
           const assetUrl = new URL(assetPath, request.url);
-          const assetRequest = new Request(assetUrl, {
-            method: request.method,
-            headers: request.headers
-          });
-
+          const assetRequest = new Request(assetUrl, { method: request.method, headers: request.headers });
           const blogAsset = await env.ASSETS.fetch(assetRequest);
 
           if (blogAsset.ok) {
-            console.log(`✅ [WORKER] Served blog asset: ${assetPath}`);
             return new Response(blogAsset.body, {
               status: 200,
               headers: {
@@ -634,38 +608,29 @@ export default {
                 ...corsHeaders
               }
             });
-          } else {
-            console.warn(`⚠️  [WORKER] Blog asset not found: ${assetPath} (status: ${blogAsset.status})`);
           }
         } catch (error) {
-          console.error(`❌ [WORKER] Error fetching blog asset ${url.pathname}:`, error);
           // Asset not found in blog-static, continue to regular assets
         }
       }
 
       // Blog Static Files from ASSETS
-      // Serves /blog/* and /[lang]/blog/* from blog-static folder in ASSETS
       const blogPathPattern = /^\/(it|en|es|fr|de)?\/?blog(\/.*)?$/;
       const blogMatch = url.pathname.match(blogPathPattern);
 
       if (blogMatch) {
-        const lang = blogMatch[1] || 'it'; // Default Italian
-        const blogSubPath = blogMatch[2] || ''; // /article-slug or empty for index
-        const blogPath = `blog${blogSubPath}`; // blog or blog/article-slug
-
-        // Construct path to blog-static files in ASSETS
+        const lang = blogMatch[1] || 'it'; 
+        const blogSubPath = blogMatch[2] || ''; 
+        const blogPath = `blog${blogSubPath}`; 
         const assetPath = `/blog-static/${lang}/${blogPath}${blogPath.endsWith('/') || blogPath === 'blog' ? 'index.html' : '/index.html'}`;
 
         try {
-          // Fetch from ASSETS binding (blog-static folder)
           const blogAsset = await env.ASSETS.fetch(new URL(assetPath, request.url));
 
           if (blogAsset.ok) {
             const contentType = blogAsset.headers.get('Content-Type') || '';
             if (contentType.includes('text/html')) {
               let htmlContent = await blogAsset.text();
-
-              // Fix canonical to point to current page URL
               const currentUrl = `https://clearcvapp.com/${lang}/${blogPath}`;
               htmlContent = fixBlogCanonical(htmlContent, currentUrl);
 
@@ -691,19 +656,11 @@ export default {
           // Blog file not found in ASSETS, return 404
         }
 
-        return new Response('Blog article not found', {
-          status: 404,
-          headers: {
-            'Content-Type': 'text/plain',
-            ...corsHeaders
-          }
-        });
+        return new Response('Blog article not found', { status: 404, headers: { 'Content-Type': 'text/plain', ...corsHeaders } });
       }
 
       // Get asset from ASSETS binding
       const asset = await env.ASSETS.fetch(request);
-
-      // Check if it's HTML content
       const contentType = asset.headers.get('Content-Type') || '';
       const isHTML = contentType.includes('text/html') ||
                      url.pathname === '/' ||
@@ -713,24 +670,15 @@ export default {
 
       if (isHTML) {
         let htmlContent;
-
         if (asset.status === 404) {
-          // SPA fallback
           const indexHtml = await env.ASSETS.fetch(new URL('/index.html', request.url));
           htmlContent = await indexHtml.text();
         } else {
           htmlContent = await asset.text();
         }
 
-        // Apply all SEO enhancements (wrapper strategy)
         let modifiedHtml = injectAnalytics(htmlContent);
-
-        // Route-based Schema.org injection
-        // Use Premium Product schema for /en/auth and similar premium pages
-        const isPremiumPage = url.pathname.includes('/auth') ||
-                              url.pathname.includes('/premium') ||
-                              url.pathname.includes('/pricing');
-
+        const isPremiumPage = url.pathname.includes('/auth') || url.pathname.includes('/premium') || url.pathname.includes('/pricing');
         if (isPremiumPage) {
           modifiedHtml = injectPremiumSchemaOrg(modifiedHtml);
         } else {
@@ -741,6 +689,7 @@ export default {
         modifiedHtml = injectNoscriptSEO(modifiedHtml);
 
         return new Response(modifiedHtml, {
+          status: asset.status === 404 ? 200 : asset.status,
           headers: {
             'Content-Type': 'text/html; charset=utf-8',
             'Cache-Control': 'public, max-age=0, must-revalidate',
@@ -749,23 +698,42 @@ export default {
         });
       }
 
-      // Return other assets with CORS headers
       return new Response(asset.body, {
         status: asset.status,
         statusText: asset.statusText,
-        headers: {
-          ...Object.fromEntries(asset.headers),
-          ...corsHeaders
-        }
+        headers: { ...Object.fromEntries(asset.headers), ...corsHeaders }
       });
     } catch (error) {
-      return new Response(`Internal Server Error: ${error.message}`, {
+      throw error;
+    }
+  },
+
+  async fetch(request, env, ctx) {
+    const startTime = Date.now();
+    let status = 500;
+    let errorMsg = null;
+
+    try {
+      const response = await this.handleRequest(request, env, ctx);
+      status = response.status;
+      return response;
+    } catch (e) {
+      errorMsg = e.message;
+      return new Response(`Internal Server Error: ${e.message}`, { 
         status: 500,
-        headers: {
-          'Content-Type': 'text/plain',
-          ...corsHeaders
-        }
+        headers: { 'Content-Type': 'text/plain' }
       });
+    } finally {
+      // Structured observability logging
+      console.log(JSON.stringify({
+        timestamp: new Date().toISOString(),
+        method: request.method,
+        url: request.url,
+        status: status,
+        durationMs: Date.now() - startTime,
+        error: errorMsg || undefined,
+        environment: env.ENVIRONMENT || 'unknown'
+      }));
     }
   }
 };

@@ -43,7 +43,7 @@
         .page {
             width: 21cm;
             min-height: 29.7cm;
-            padding: 0.4cm 0.4cm 0;
+            padding: 0.8cm 1.0cm 0;
             background-color: white;
             box-shadow: var(--shadow-sm);
             margin-bottom: 20px;
@@ -352,6 +352,7 @@
 
         /* Print styles */
         @media print {
+            .hybrid-bottom { display: block!important; width: 100%!important; margin-top: 15px!important; }
             * {
                 -webkit-print-color-adjust: exact !important;
             }
@@ -387,8 +388,8 @@
 </head>
 <body>
     <div class="cv-multi-page-container">
-        <!-- Pagina 1 -->
-        <div class="page" id="page1">
+        <!-- Pagina Unica Ibrida -->
+        <div class="page">
             <!-- Header -->
             <header class="main-header">
                 <div class="header-photo-container">
@@ -400,80 +401,43 @@
                 </div>
             </header>
 
-            <!-- Body -->
+            <!-- Hybrid Top -->
             <div class="resume-body">
-                <!-- Sidebar -->
-                <div class="sidebar">
-                    <!-- Contatti -->
+                <aside class="sidebar">
                     <section class="contact-section">
                         <h3>Contatti</h3>
                         <ul id="contacts-list"></ul>
                     </section>
-
-                    <!-- Skills -->
                     <section class="skills-section">
                         <h3>Competenze Tecniche</h3>
                         <div id="skills-container"></div>
                     </section>
-                </div>
-
-                <!-- Main Content -->
-                <div class="main-content">
-                    <!-- Profilo -->
+                </aside>
+                <main class="main-content">
                     <section class="profile-section">
                         <h3>Profilo Professionale</h3>
                         <div class="about-description" id="profile-text"></div>
                     </section>
-
-                    <!-- Esperienza -->
                     <section class="experience-section">
                         <h3>Esperienza Professionale</h3>
-                        <div id="experience-container"></div>
+                        <div id="experience-container-top"></div>
                     </section>
-                </div>
+                </main>
             </div>
 
-            <!-- Footer -->
-            <div class="page-footer-container">
-                <div class="page-footer">
-                    <div class="footer-left" id="footer-disclaimer"></div>
-                    <div class="footer-right">Pagina 1</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Pagina 2 -->
-        <div class="page" id="page2">
-            <div class="resume-body">
-                <div class="sidebar">
-                    <!-- Formazione -->
-                    <section class="education-section">
-                        <h3>Formazione</h3>
-                        <div id="education-container"></div>
-                    </section>
-                </div>
-
-                <div class="main-content">
-                    <!-- Esperienza continua dalla pagina 1 -->
-                    <section class="experience-section">
-                        <h3>Esperienza Professionale (continua)</h3>
-                        <div id="experience-container-page2"></div>
-                    </section>
-
-                    <!-- Progetti Personali -->
-                    <section class="personal-projects-section">
-                        <h3>Progetti Personali</h3>
-                        <div id="personal-projects-container-page2"></div>
-                    </section>
-                </div>
-            </div>
-
-            <!-- Footer -->
-            <div class="page-footer-container">
-                <div class="page-footer">
-                    <div class="footer-left" id="footer-disclaimer-page2"></div>
-                    <div class="footer-right">Pagina 2</div>
-                </div>
+            <!-- Hybrid Bottom -->
+            <div class="hybrid-bottom" style="margin-top: 10px;">
+                <section class="experience-section">
+                    <div id="experience-container-bottom"></div>
+                </section>
+                <section class="personal-projects-section" id="personal-projects-wrapper" style="display: none;">
+                    <h3>Progetti Personali</h3>
+                    <div id="personal-projects-container"></div>
+                </section>
+                <section class="education-section">
+                    <h3>Formazione</h3>
+                    <div id="education-container"></div>
+                </section>
             </div>
         </div>
     </div>
@@ -595,36 +559,30 @@
                 });
                 console.log('✅ Skills popolate:', data.skills.length, 'categorie');
 
-                // Popola esperienza (prima pagina - primi 3)
-                console.log('🏢 Popolo esperienza pagina 1...');
-                const experienceContainer = document.getElementById('experience-container');
-                const firstExperiences = data.experience.slice(0, 3);
-                console.log('  Esperienze pagina 1:', firstExperiences.length);
-                firstExperiences.forEach((exp, index) => {
-                    console.log(`    Esperienza ${index + 1}:`, exp.job_title);
-                    experienceContainer.appendChild(createExperienceItem(exp));
+                // Popola esperienza (Top - prime 2)
+                console.log('🏢 Popolo esperienza top...');
+                const experienceContainerTop = document.getElementById('experience-container-top');
+                const firstExperiences = data.experience.slice(0, 2);
+                firstExperiences.forEach((exp) => {
+                    experienceContainerTop.appendChild(createExperienceItem(exp));
                 });
 
-                // Popola esperienza (seconda pagina - resto)
-                console.log('🏢 Popolo esperienza pagina 2...');
-                const experienceContainer2 = document.getElementById('experience-container-page2');
-                const remainingExperiences = data.experience.slice(3);
-                console.log('  Esperienze pagina 2:', remainingExperiences.length);
-                remainingExperiences.forEach((exp, index) => {
-                    console.log(`    Esperienza ${index + 4}:`, exp.job_title);
-                    experienceContainer2.appendChild(createExperienceItem(exp));
+                // Popola esperienza (Bottom - resto)
+                console.log('🏢 Popolo esperienza bottom...');
+                const experienceContainerBottom = document.getElementById('experience-container-bottom');
+                const remainingExperiences = data.experience.slice(2);
+                remainingExperiences.forEach((exp) => {
+                    experienceContainerBottom.appendChild(createExperienceItem(exp));
                 });
 
-                // Popola progetti personali pagina 2
-                console.log('🚀 Popolo progetti personali pagina 2...');
+                // Popola progetti personali
+                console.log('🚀 Popolo progetti personali...');
                 if (data.personal_projects && data.personal_projects.length > 0) {
-                    const projectsContainer2 = document.getElementById('personal-projects-container-page2');
-                    console.log('  Progetti personali pagina 2:', data.personal_projects.length);
-                    data.personal_projects.forEach((project, index) => {
-                        console.log(`    Progetto ${index + 1}:`, project.job_title);
-                        projectsContainer2.appendChild(createExperienceItem(project));
+                    document.getElementById('personal-projects-wrapper').style.display = 'block';
+                    const projectsContainer = document.getElementById('personal-projects-container');
+                    data.personal_projects.forEach((project) => {
+                        projectsContainer.appendChild(createExperienceItem(project));
                     });
-                    console.log('✅ Progetti personali pagina 2 popolati:', data.personal_projects.length);
                 }
 
                 // Popola formazione
@@ -664,11 +622,8 @@
                 });
                 console.log('✅ Formazione popolata:', data.education.length);
 
-                // Popola footer
-                console.log('📄 Popolo footer...');
-                document.getElementById('footer-disclaimer').textContent = data.footer_disclaimer;
-                document.getElementById('footer-disclaimer-page2').textContent = data.footer_disclaimer;
-                console.log('✅ Footer popolato');
+                // Footer gestito nativamente da Puppeteer
+                console.log('✅ Footer delegato a Puppeteer');
 
                 console.log('🎉 CARICAMENTO CV COMPLETATO CON SUCCESSO!');
 
