@@ -278,6 +278,25 @@ function replaceFavicon(html) {
   return html.replace(/href="\/favicon\.ico"/g, 'href="/favicon.svg"');
 }
 
+// BUILD_SOURCE: aggiornato a ogni deploy worker per distinguere origine contenuto
+const BUILD_SOURCE = 'worker';
+const BUILD_HASH = '93d1dad';
+const BUILD_DATE = '2026-07-09';
+
+// ITSWEFD: badge versione sempre visibile sotto il brand navbar per orientamento origine
+function injectVersionBadge(html, env, request) {
+  const environment = (env && env.ENVIRONMENT) || 'unknown';
+  const host = request ? new URL(request.url).hostname : 'unknown';
+  const label = `v1.0.0+${BUILD_HASH} · ${BUILD_SOURCE}/${environment} · ${host}`;
+
+  const badgeStyle = 'display:block;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:9px;line-height:1;color:hsl(var(--muted-foreground));margin-top:1px;opacity:.7;letter-spacing:.02em;';
+  const badge = `<span class="ccv-version-badge" data-build-source="${BUILD_SOURCE}" data-build-hash="${BUILD_HASH}" data-build-date="${BUILD_DATE}" style="${badgeStyle}">${label}</span>`;
+
+  // Inietta sotto ogni brand "ClearCV" (span con classe text-gradient) su tutte le navbar
+  const brandRegex = /(<span[^>]*\btext-gradient\b[^>]*>ClearCV<\/span>)/g;
+  return html.replace(brandRegex, '$1' + badge);
+}
+
 /**
  * Fix canonical tag for blog pages
  * Replaces incorrect canonical (pointing to homepage) with correct one (current page URL)
@@ -687,6 +706,7 @@ export default {
 
         modifiedHtml = replaceFavicon(modifiedHtml);
         modifiedHtml = injectNoscriptSEO(modifiedHtml);
+        modifiedHtml = injectVersionBadge(modifiedHtml, env, request);
 
         return new Response(modifiedHtml, {
           status: asset.status === 404 ? 200 : asset.status,
