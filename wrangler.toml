@@ -1,12 +1,17 @@
 # Configurazione Cloudflare Workers per ClearCV - Lovable Version
 # App completamente nuova generata con Lovable che sostituisce la vecchia implementazione
+#
+# [LEGACY - 10 lug 2026] Questo worker e' stato neutralizzato per conflitto:
+# ClearCv (01-cv-career-portfolio/ClearCv) e' l'unico sorgente di deploy per clearcvapp.com.
+# Il name del worker e' stato cambiato per evitare sovrascritture accidentali del worker in produzione.
+# Le route production sono state rimosse. Non deployare da questo repo.
 
-name = "clearcv-app"
+name = "clearcv-app-legacy"
 main = "worker.js"
 compatibility_date = "2024-01-15"
 compatibility_flags = ["nodejs_compat"]
 
-# Configurazione KV per storage (riutilizziamo i namespace esistenti)
+# KV namespaces (reference only, non usati in produzione da questo worker)
 [[kv_namespaces]]
 binding = "CV_STORAGE"
 id = "db6a944b74b04ecd91f027a7ad7257df"
@@ -15,53 +20,26 @@ id = "db6a944b74b04ecd91f027a7ad7257df"
 binding = "USER_SESSIONS"
 id = "aa90ab4794204ce3aa63b6879bbad956"
 
-# Routes per production deployment su clearcvapp.com
-[[routes]]
-pattern = "clearcvapp.com/*"
-zone_name = "clearcvapp.com"
-
-[[routes]]
-pattern = "www.clearcvapp.com/*"
-zone_name = "clearcvapp.com"
-
-[[routes]]
-pattern = "app.clearcvapp.com/*"
-zone_name = "clearcvapp.com"
+# Route production RIMOSSE — il worker clearcv-app (produzione) e' gestito da ClearCv/wrangler.toml
 
 # Static assets configuration - punta alla build di Lovable
-# Nota: Wrangler 4.x usa 'assets' invece di 'site'
-# html_handling = "none" forza il passaggio attraverso il worker per modifiche runtime
 [assets]
 directory = "./clear-cv-integration/dist"
 binding = "ASSETS"
 html_handling = "none"
 
-# Variabili d'ambiente per produzione
 [vars]
-ENVIRONMENT = "production"
+ENVIRONMENT = "legacy"
 CORS_ORIGINS = "https://clearcvapp.com,https://www.clearcvapp.com,https://app.clearcvapp.com"
 
-# Development configuration
+# Development configuration (locale only)
 [env.development]
-name = "clearcv-app-dev"
+name = "clearcv-app-legacy-dev"
 
 [env.development.vars]
 ENVIRONMENT = "development"
 CORS_ORIGINS = "http://localhost:8080,http://localhost:8787,http://localhost:3000"
 
-# Staging environment
-[env.staging]
-name = "clearcv-app-staging"
-
-[env.staging.vars]
-ENVIRONMENT = "staging"
-CORS_ORIGINS = "https://staging.clearcvapp.com,https://test.clearcvapp.com"
-
-[[env.staging.routes]]
-pattern = "staging.clearcvapp.com/*"
-zone_name = "clearcvapp.com"
-
-# Configurazione per sviluppo locale
 [dev]
 port = 8787
 local_protocol = "http"
