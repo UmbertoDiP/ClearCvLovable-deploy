@@ -297,6 +297,37 @@
   ],
   "personal_projects": [
     {
+      "job_title": "Folder2Text",
+      "company": "Microsoft Store (Windows 11) - https://folder2text.com/",
+      "position": "Founder",
+      "context": "2026 - In produzione",
+      "dates": "2026 - Presente",
+      "description": "Applicazione desktop Windows (Microsoft Store) per l'estrazione e centralizzazione di intere directory in file testuali ottimizzati per LLM (ChatGPT, Claude, Gemini). Include integrazione nel menu contestuale, filtri smart (esclusione automatica di node_modules, .git), elaborazione multi-thread e interfaccia in 36 lingue. Elaborazione 100% in locale per la privacy del codice.",
+      "chips": [
+        "Python 3.13",
+        "PyQt6",
+        "Flask",
+        "PyInstaller",
+        "MSIX Packaging"
+      ]
+    },
+    {
+      "job_title": "Folder2Text CLI",
+      "company": "Open Source - https://github.com/UmbertoDiP/folder2text-cli",
+      "position": "Founder",
+      "context": "2026 - Open Source (pip install folder2text)",
+      "dates": "2026 - Presente",
+      "description": "CLI open-source (pip installable) che funge da thin wrapper per l'app Folder2Text Store. Legge l'API REST locale dell'app desktop, triggera estrazioni da terminale e supporta pipe a stdout per alimentare LLM. Pubblicato su PyPI e GitHub. Zero dipendenze runtime (solo stdlib Python).",
+      "chips": [
+        "Python 3.13",
+        "pip",
+        "PyPI",
+        "CLI",
+        "urllib",
+        "MIT License"
+      ]
+    },
+    {
       "job_title": "Founder & Full Stack Developer",
       "company": "ClearCV - https://clearcvapp.com/",
       "context": "",
