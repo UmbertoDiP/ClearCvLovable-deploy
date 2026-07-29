@@ -37,3 +37,8 @@ clear-cv-integration/node_modules/
 blog-local/wordpress-data/
 blog-local/db-data/
 blog-static/*.zip
+
+# Auto-generated & Temporary
+.aider.chat.history.md
+dispatch_log.txt
+worker-backup-*.js
